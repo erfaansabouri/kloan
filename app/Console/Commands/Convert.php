@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Setting;
 use Illuminate\Console\Command;
 
 class Convert extends Command
@@ -39,5 +40,11 @@ class Convert extends Command
     {
         $this->call('convert:sites');
         $this->call('convert:users');
+
+        Setting::query()
+            ->create([
+                'key' => 'monthly_saving_amount',
+                'value' => "1000000",
+            ]);
     }
 }

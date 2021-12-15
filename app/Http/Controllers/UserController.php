@@ -70,7 +70,7 @@ class UserController extends Controller
         $user->site_id = $request->site_id;
         $user->save();
 
-        return redirect()->back()->with('result', 'پرسنل با موفقیت ایجاد شد!');;
+        return redirect()->back()->with('result', 'پرسنل با موفقیت ایجاد شد!');
     }
 
     /**

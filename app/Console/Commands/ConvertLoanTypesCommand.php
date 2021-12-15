@@ -2,19 +2,19 @@
 
 namespace App\Console\Commands;
 
+use App\Models\LoanType;
 use App\Models\Site;
-use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
-class ConvertOldSitesCommand extends Command
+class ConvertLoanTypesCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'convert:sites';
+    protected $signature = 'convert:loan_types';
 
     /**
      * The console command description.
@@ -40,29 +40,36 @@ class ConvertOldSitesCommand extends Command
      */
     public function handle()
     {
-        Site::query()->truncate();
-        $oldSites = DB::connection('mysql2')
-            ->table('sh')
+        LoanType::query()->truncate();
+        $oldLoanGroups = DB::connection('mysql2')
+            ->table('goroh')
             ->get();
 
-        foreach ($oldSites as $oldSite)
+
+
+        foreach ($oldLoanGroups as $oldLoanGroup)
         {
-            $alreadyExists = Site::query()
-                ->where('title', $oldSite->name)->first();
+            $newLoanType = new LoanType();
+            $newLoanType->parent_id = null;
+            $newLoanType->code = $oldLoanGroup->codg;
+            $newLoanType->title = $this->arabicToPersian($oldLoanGroup->gh);
+            $newLoanType->save();
 
-            if(!$alreadyExists)
+            // add sub groups
+            $oldLoanSubGroups = DB::connection('mysql2')
+                ->table('nb')
+                ->where('codg' , $oldLoanGroup->codg)
+                ->get();
+
+            foreach ($oldLoanSubGroups as $oldLoanSubGroup)
             {
-                $newSite = new Site();
-                $newSite->code = $oldSite->codsh;
-                $newSite->title = $this->arabicToPersian($oldSite->name);
-                $newSite->save();
-            }
-
-            else{
-                $this->info($oldSite->codsh . " Duplicate alert.");
+                $newSubLoanType = new LoanType();
+                $newSubLoanType->parent_id = $newLoanType->id;
+                $newSubLoanType->code = $oldLoanSubGroup->codb;
+                $newSubLoanType->title = $this->arabicToPersian($oldLoanSubGroup->nb);
+                $newSubLoanType->save();
             }
         }
-        $this->info("Converting ". $this->signature . " Done!");
     }
 
     private function arabicToPersian($string)

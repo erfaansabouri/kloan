@@ -4,7 +4,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="fontiran.com:license" content="Y68A9">
-<link rel="icon" href="{{ asset('build/images/favicon.ico') }}" type="image/ico"/>
 <title>مدیریت وام</title>
 
 <!-- Bootstrap -->

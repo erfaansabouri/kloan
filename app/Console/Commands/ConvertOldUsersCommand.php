@@ -54,11 +54,11 @@ class ConvertOldUsersCommand extends Command
             if(!$alreadyExists)
             {
                 $newUser = new User();
-                $newUser->first_name = $oldUser->name;
-                $newUser->last_name = $oldUser->lname;
+                $newUser->first_name = $this->arabicToPersian($oldUser->name);
+                $newUser->last_name = $this->arabicToPersian($oldUser->lname);
                 $newUser->status = $oldUser->vz == "True" ? false : true;
                 $newUser->identification_code = $oldUser->codh;
-                $newUser->site_id = $this->getSiteId($oldUser->nsh);
+                $newUser->site_id = $this->getSiteId($this->arabicToPersian($oldUser->nsh));
                 $newUser->save();
             }
 
@@ -90,5 +90,31 @@ class ConvertOldUsersCommand extends Command
         }
 
         return $alreadyExits->id;
+    }
+
+    private function arabicToPersian($string)
+    {
+        $characters = [
+            'ك' => 'ک',
+            'دِ' => 'د',
+            'بِ' => 'ب',
+            'زِ' => 'ز',
+            'ذِ' => 'ذ',
+            'شِ' => 'ش',
+            'سِ' => 'س',
+            'ى' => 'ی',
+            'ي' => 'ی',
+            '١' => '۱',
+            '٢' => '۲',
+            '٣' => '۳',
+            '٤' => '۴',
+            '٥' => '۵',
+            '٦' => '۶',
+            '٧' => '۷',
+            '٨' => '۸',
+            '٩' => '۹',
+            '٠' => '۰',
+        ];
+        return str_replace(array_keys($characters), array_values($characters),$string);
     }
 }

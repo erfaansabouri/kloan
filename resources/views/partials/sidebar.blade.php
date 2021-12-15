@@ -1,7 +1,7 @@
 <div class="col-md-3 left_col hidden-print">
     <div class="left_col scroll-view">
         <div class="navbar nav_title" style="border: 0;">
-            <a href="index.html" class="site_title"><i class="fa fa-money"></i> <span>مدیریت وام</span></a>
+            <a href="{{ route('home') }}" class="site_title"><i class="fa fa-money"></i> <span>مدیریت وام</span></a>
         </div>
 
         <div class="clearfix"></div>
@@ -28,10 +28,10 @@
                     <li><a><i class="fa fa-home"></i> مدیریت <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="{{ route('admin.management.users.index') }}">پرسنل</a></li>
-                            <li><a href="index2.html">گروه وام</a></li>
-                            <li><a href="index3.html">زیر گروه وام</a></li>
-                            <li><a href="index3.html">محل خدمت</a></li>
-                            <li><a href="index3.html">مبلغ پس انداز ماهیانه</a></li>
+                            <li><a href="{{ route('admin.management.loan_types.index') }}">گروه وام</a></li>
+                            <li><a href="{{ route('admin.management.sub_loan_types.index') }}">زیر گروه وام</a></li>
+                            <li><a href="{{ route('admin.management.sites.index') }}">محل خدمت</a></li>
+                            <li><a href="{{ route('admin.management.monthly_saving.edit') }}">مبلغ پس انداز ماهیانه</a></li>
                         </ul>
                     </li>
                     <li><a><i class="fa fa-edit"></i> عملیات <span class="fa fa-chevron-down"></span></a>

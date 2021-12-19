@@ -13,8 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\WelcomeController::class, 'index'])->name('home');
-Route::prefix('admin')->group(function () {
+Route::get('/', [\App\Http\Controllers\WelcomeController::class, 'index'])->name('home')->middleware(['auth']);
+Route::get('/login', [\App\Http\Controllers\LoginController::class, 'show'])->name('login');
+Route::post('/login', [\App\Http\Controllers\LoginController::class, 'authenticate'])->name('login.post');
+Route::post('/logout', [\App\Http\Controllers\LoginController::class, 'logout'])->name('logout');
+
+Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::prefix('management')->group(function () {
         Route::prefix('users')->group(function () {
             Route::get('/', [\App\Http\Controllers\UserController::class, 'index'])->name('admin.management.users.index');

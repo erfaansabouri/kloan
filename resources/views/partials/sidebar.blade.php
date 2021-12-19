@@ -52,26 +52,24 @@
                             <li><a href="glyphicons.html">کسورات ماهیانه</a></li>
                         </ul>
                     </li>
+                    <li >
+                        <a style="color:rgb(46, 197, 202);" href="#" onclick="document.getElementById('logout').submit(); return false;">
+                            <i class="glyphicon glyphicon-off"></i>
+                            خروج از سامانه
+                            <span>
+
+                            </span>
+                        </a>
+                        <form action={{ route('logout') }} method="post" id="logout">
+                            @csrf
+                            @method('post')
+                        
+                        </form>
+                        
+                    </li>
                 </ul>
             </div>
         </div>
-        <!-- /sidebar menu -->
 
-        <!-- /menu footer buttons -->
-        <div class="sidebar-footer hidden-small">
-            <a data-toggle="tooltip" data-placement="top" title="تنظیمات">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-            </a>
-            <a data-toggle="tooltip" data-placement="top" title="تمام صفحه" onclick="toggleFullScreen();">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-            </a>
-            <a data-toggle="tooltip" data-placement="top" title="قفل" class="lock_btn">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-            </a>
-            <a data-toggle="tooltip" data-placement="top" title="خروج" href="login.html">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-            </a>
-        </div>
-        <!-- /menu footer buttons -->
     </div>
 </div>

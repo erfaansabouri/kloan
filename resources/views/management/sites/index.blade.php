@@ -9,9 +9,11 @@
             <div class="page-title">
                 <div class="title_left">
                     <h3>مدیریت
-                        <small>لیست محل خدمت</small>
+                        
                     </h3>
+                    <h4>لیست محل های خدمت</h4>
                 </div>
+                
             </div>
             <form action="{{ route('admin.management.sites.index') }}" method="get">
                 @csrf

@@ -9,10 +9,14 @@
             <div class="page-title  hidden-print">
                 <div class="title_left">
                     <h3>نمایش محل خدمت
+                </h3>
+                <div class="title_right">
+                    <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right">
                         <a href="{{ route('admin.management.sites.index') }}">
-                            <small>بازگشت به صفحه مدیریت محل خدمت</small>
+                            <button class="btn btn-block btn-dark">بازگشت</button>
                         </a>
-                    </h3>
+                    </div>
+                </div>
 
                 </div>
             </div>

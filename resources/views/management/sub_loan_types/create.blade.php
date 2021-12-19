@@ -14,6 +14,11 @@
 
 
                 <div class="title_right">
+                    <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right">
+                        <a href="{{ route('admin.management.sub_loan_types.index') }}">
+                            <button class="btn btn-block btn-dark">بازگشت</button>
+                        </a>
+                    </div>
                     <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
                         @if (session('result'))
                             <div class="alert alert-success">
@@ -77,7 +82,7 @@
                                 <div class="ln_solid"></div>
                                 <div class="form-group">
                                     <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                        <button type="submit" class="btn btn-success">ارسال</button>
+                                        <button type="submit" class="btn btn-success">ذخیره</button>
                                         <a href="{{ route('admin.management.sub_loan_types.index') }}">
                                             <div class="btn btn-danger">انصراف</div>
                                         </a>

@@ -9,10 +9,13 @@
             <div class="page-title">
                 <div class="title_left">
                     <h3>مدیریت
-                        <small>لیست زیر گروه وام</small>
+                       
                     </h3>
+                    <h4>لیست زیر گروه های وام</h4>
                 </div>
+            
             </div>
+            
             <div class="clearfix"></div>
 
             <div class="row">

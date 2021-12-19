@@ -8,12 +8,14 @@
         <div class="">
             <div class="page-title  hidden-print">
                 <div class="title_left">
-                    <h3>پروفایل کاربر
+                    <h3>پروفایل کاربر</h3>
+                </div>
+                <div class="title_right">
+                    <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right">
                         <a href="{{ route('admin.management.users.index') }}">
-                            <small>بازگشت به صفحه مدیریت پرسنل</small>
+                            <button class="btn btn-block btn-dark">بازگشت</button>
                         </a>
-                    </h3>
-
+                    </div>
                 </div>
             </div>
 

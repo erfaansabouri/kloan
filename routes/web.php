@@ -57,5 +57,12 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
             Route::get('/edit', [\App\Http\Controllers\MonthlySavingController::class, 'edit'])->name('admin.management.monthly_saving.edit');
             Route::put('/update', [\App\Http\Controllers\MonthlySavingController::class, 'update'])->name('admin.management.monthly_saving.update');
         });
+        Route::prefix('user_loan')->group(function () {
+            Route::get('/', [\App\Http\Controllers\UserLoanController::class, 'index'])->name('admin.management.user_loan.index');
+            Route::get('/create', [\App\Http\Controllers\UserLoanController::class, 'create'])->name('admin.management.user_loan.create');
+            Route::post('/create', [\App\Http\Controllers\UserLoanController::class, 'store'])->name('admin.management.user_loan.store');
+
+
+        });
     });
 });

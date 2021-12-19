@@ -40,7 +40,7 @@ class Convert extends Command
     {
         $this->call('convert:sites');
         $this->call('convert:users');
-
+        $this->call('convert:loan_types');
         Setting::query()
             ->create([
                 'key' => 'monthly_saving_amount',

@@ -48,7 +48,7 @@ class ConvertOldUsersCommand extends Command
         foreach ($oldUsers as $oldUser)
         {
             $alreadyExists = User::query()
-                ->where('identification_code', $oldUser->codh)
+                ->where('identification_code', "23" . (string)$oldUser->codh)
                 ->first();
 
             if(!$alreadyExists)
@@ -57,7 +57,7 @@ class ConvertOldUsersCommand extends Command
                 $newUser->first_name = $this->arabicToPersian($oldUser->name);
                 $newUser->last_name = $this->arabicToPersian($oldUser->lname);
                 $newUser->status = $oldUser->vz == "True" ? false : true;
-                $newUser->identification_code = $oldUser->codh;
+                $newUser->identification_code = "23" . (string)$oldUser->codh;
                 $newUser->site_id = $this->getSiteId($this->arabicToPersian($oldUser->nsh));
                 $newUser->save();
             }

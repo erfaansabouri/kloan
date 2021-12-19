@@ -58,7 +58,16 @@
 
 <!-- Custom Theme Scripts -->
 <script src="{{ asset('build/js/custom.min.js') }}"></script>
-
-
+<script src="https://cdn.jsdelivr.net/npm/jalaali-js/dist/jalaali.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jalaali-js/dist/jalaali.min.js"></script>
+<script>
+    $('.jalali_date').keyup(function() {
+        var foo = $(this).val().split("-").join(""); // remove hyphens
+        if (foo.length > 0) {
+            foo = foo.match(new RegExp('.{1,4}', 'g')).join("-");
+        }
+        $(this).val(foo);
+    });
+</script>
 </body>
 </html>

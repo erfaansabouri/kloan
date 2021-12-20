@@ -20,6 +20,11 @@ class UserLoan extends Model
         return $this->belongsTo(LoanType::class, 'loan_type_id');
     }
 
+    public function installments()
+    {
+        return $this->hasMany(Installment::class);
+    }
+
     public function isReceivedCompletely()
     {
         $totalInstallmentReceivedAmount = Installment::query()
@@ -41,5 +46,19 @@ class UserLoan extends Model
 
         if($isReceived) return true;
         return false;
+    }
+
+    public function getTotalReceivedInstallmentAmountAttribute()
+    {
+        return Installment::query()
+            ->where('user_loan_id', $this->id)
+            ->sum('received_amount');
+    }
+
+    public function getTotalRemainedInstallmentAmountAttribute()
+    {
+        return $this->total_amount - Installment::query()
+            ->where('user_loan_id', $this->id)
+            ->sum('received_amount');
     }
 }

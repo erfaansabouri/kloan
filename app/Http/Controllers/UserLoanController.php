@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Installment;
 use App\Models\LoanType;
 use App\Models\User;
 use App\Models\UserLoan;
@@ -20,6 +21,21 @@ class UserLoanController extends Controller
             ->with(['user', 'loan'])
             ->paginate(20);
         return view('management.user_loan.index', compact('userLoans'));
+    }
+
+    public function completedIndex()
+    {
+        $userLoans = UserLoan::query()
+            ->with(['user', 'loan'])
+            ->whereHas('installments')
+            ->orderByDesc('user_loan.id')
+            ->paginate(20)
+            ->append([
+                'total_received_installment_amount',
+                'total_remained_installment_amount',
+            ]);
+
+        return view('management.user_loan.completed_index', compact('userLoans'));
     }
 
     /**
@@ -82,8 +98,16 @@ class UserLoanController extends Controller
         $userLoan = UserLoan::query()
             ->with(['user', 'loan'])
             ->where('id', $id)
-            ->firstOrFail();
-        return view('management.user_loan.show', compact('userLoan'));
+            ->firstOrFail()
+            ->append([
+                'total_received_installment_amount',
+                'total_remained_installment_amount',
+            ]);
+
+        $installments = Installment::query()
+            ->where('user_loan_id', $id)
+            ->get();
+        return view('management.user_loan.show', compact('userLoan', 'installments'));
     }
 
     /**

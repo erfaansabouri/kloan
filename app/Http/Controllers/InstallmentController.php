@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\UserLoan;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Morilog\Jalali\Jalalian;
 
 class InstallmentController extends Controller
 {
@@ -23,6 +24,9 @@ class InstallmentController extends Controller
             'year' => ['required','min:1300', 'max:1500', 'numeric']
         ]);
 
+        $date = (new Jalalian($request->year, $request->month, 1, 00, 00, 0))->toCarbon()->toDateTimeString();
+        $date = Carbon::parse($date);
+
         $activeUsers = User::query()
             ->where('status', 1)
             ->get();
@@ -34,10 +38,10 @@ class InstallmentController extends Controller
             // check if has active loan
             $userLoans = UserLoan::query()
                 ->where('user_id', $activeUser->id)
+                ->where('first_installment_received_at', '<=' , $date)
                 ->get();
             foreach ($userLoans as $userLoan)
             {
-                //dd($userLoan->isReceivedCompletely());
                 if(!$userLoan->isReceivedCompletely() && !$userLoan->isInstallmentReceivedForMonthYear($request->month, $request->year))
                 {
                     Installment::query()
@@ -53,7 +57,7 @@ class InstallmentController extends Controller
                 }
             }
         }
-        return redirect()->back()->with('result', "tedad $totalReceived ghest az karbar ha kam shod");
+        return redirect()->back()->with('result', "تعداد  $totalReceived قسط از پرسنل کسر شد.");
 
 
 
@@ -131,6 +135,9 @@ class InstallmentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Installment::query()
+            ->findOrFail($id)->delete();
+        return redirect()->back()->with('result', "قسط حذف شد.");
+
     }
 }

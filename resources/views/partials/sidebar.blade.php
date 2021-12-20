@@ -38,8 +38,8 @@
                         <ul class="nav child_menu">
                             <li><a href="{{ route('admin.management.user_loan.index') }}">پرداخت وام</a></li>
                             <li><a href="{{ route('admin.management.installments.receive_from_all_users_create') }}">دریافت قسط اتوماتیک</a></li>
-                            <li><a href="form_validation.html">دریافت مبلغ پس انداز ماهیانه</a></li>
-                            <li><a href="form_wizards.html">بایگانی وام های تسویه شده</a></li>
+                            <li><a href="{{ route('admin.management.savings.receive_from_all_users_create') }}">دریافت مبلغ پس انداز ماهیانه</a></li>
+                            <li><a href="{{ route('admin.management.user_loan.completed_index') }}">بایگانی وام های تسویه شده</a></li>
                         </ul>
                     </li>
                     <li><a><i class="fa fa-desktop"></i> گزارش گیری <span

@@ -68,9 +68,12 @@
         }
         $(this).val(foo);
     });
-    $(".comma_number").each(function() {
-        $(this).format({format:"#,###", locale:"en"});
-    });
+    $.fn.digits = function(){
+        return this.each(function(){
+            $(this).text( $(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") );
+        })
+    };
+    $(".comma_numbers").digits();
 </script>
 </body>
 </html>

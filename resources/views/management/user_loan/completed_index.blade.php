@@ -9,7 +9,7 @@
             <div class="page-title">
                 <div class="title_left">
                     <h3>عملیات</h3>
-                    <h4>لیست وام های پرداختی</h4>
+                    <h4>لیست وام های تسویه شده</h4>
                 </div>
             </div>
           
@@ -22,9 +22,6 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <a href="{{ route('admin.management.user_loan.create') }}">
-                                <div class="btn bg-green">تعریف وام جدید</div>
-                            </a>
                             <ul class="nav navbar-right panel_toolbox">
                                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
@@ -43,13 +40,12 @@
                                         <th class="column-title">نام</th>
                                         <th class="column-title">نام خانوادگی</th>
                                         <th class="column-title">کد پرسنلی</th>
-                                        <th class="column-title">کد حسابداری</th>
                                         <th class="column-title">وام(کد)</th>
                                         <th class="column-title">مبلغ کل وام</th>
-                                        <th class="column-title">تعداد قسط</th>
-                                        <th class="column-title">مبلغ هر قسط</th>
-                                        <th class="column-title">تاریخ وصول اولین قسط</th>
-                                        <th class="column-title">تاریخ پرداخت وام</th>
+                                        <th class="column-title">کل مبلغ پرداختی</th>
+                                        <th class="column-title">کل تعداد اقساط پرداختی</th>
+                                        <th class="column-title">مبلغ باقی مانده</th>
+                                        <th class="column-title">وضعیت پرداخت اقساط</th>
                                         <th class="column-title">عملیات</th>
 
                                     </tr>
@@ -57,25 +53,23 @@
 
                                     <tbody>
                                     @foreach($userLoans as $userLoan)
-                                        <tr class="even pointer">
+                                        <tr class="even pointer @if($userLoan->total_remained_installment_amount == 0) bg-green @endif">
                                             <td class=" ">{{ $userLoan->id }}</td>
                                             <td class=" ">{{ $userLoan->user->first_name }}</td>
                                             <td class=" ">{{ $userLoan->user->last_name }}</td>
                                             <td class=" ">{{ $userLoan->user->identification_code }}</td>
-                                            <td class=" ">{{ $userLoan->user->accounting_code ?? "تعریف نشده"}}</td>
                                             <td class=" ">{{ $userLoan->loan->title }}({{ $userLoan->loan->code }})</td>
-                                            <td class=""> <span class="comma_numbers">{{ $userLoan->total_amount }}</span> ریال</td>
-                                            <td class="">{{ $userLoan->installment_count }}</td>
-                                            <td class=""><span class="comma_numbers">{{ $userLoan->installment_amount }}</span> ریال</td>
-                                            <td class=" ">{{(new \App\Models\TimeHelper)->georgian2jalali($userLoan->first_installment_received_at) }}</td>
-                                            <td class=" ">{{(new \App\Models\TimeHelper)->georgian2jalali($userLoan->loan_paid_to_user_at) }}</td>
-                                            <td class=" "><a href="{{ route('admin.management.user_loan.show', $userLoan->id) }}">نمایش</a></td>
+                                            <td class=""><span class="comma_numbers">{{ $userLoan->total_amount }}</span> ریال</td>
+                                            <td class=""><span class="comma_numbers">{{ $userLoan->total_received_installment_amount }}</span> ریال</td>
+                                            <td class=""> <span class="comma_numbers">{{ $userLoan->installments->count() }}</span></td>
+                                            <td class=""><span class="comma_numbers">{{ $userLoan->total_remained_installment_amount }}</span> ریال</td>
+                                            <td class="">@if($userLoan->total_remained_installment_amount == 0) پرداخت کامل @endif @if($userLoan->total_remained_installment_amount > 0) پرداخت ناقص @endif</td>
+                                            <td class=" "><a href="{{ route('admin.management.user_loan.show', $userLoan->id) }}">بایگانی</a></td>
                                         </tr>
                                     @endforeach
                                     </tbody>
                                 </table>
                             </div>
-                            {{ $userLoans->withQueryString()->links() }}
                         </div>
                     </div>
                 </div>

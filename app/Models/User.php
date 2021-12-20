@@ -49,4 +49,16 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Site::class);
     }
+
+    public function hasPaidSaving($month, $year)
+    {
+        $condition = Saving::query()
+            ->where('user_id', $this->id)
+            ->where('month', $month)
+            ->where('year', $year)
+            ->first();
+
+        if($condition) return true;
+        return false;
+    }
 }

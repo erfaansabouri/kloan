@@ -12,6 +12,7 @@
                     <h4>لیست وام های تسویه شده</h4>
                 </div>
             </div>
+
           
 
 
@@ -64,7 +65,13 @@
                                             <td class=""> <span class="comma_numbers">{{ $userLoan->installments->count() }}</span></td>
                                             <td class=""><span class="comma_numbers">{{ $userLoan->total_remained_installment_amount }}</span> ریال</td>
                                             <td class="">@if($userLoan->total_remained_installment_amount == 0) پرداخت کامل @endif @if($userLoan->total_remained_installment_amount > 0) پرداخت ناقص @endif</td>
-                                            <td class=" "><a href="{{ route('admin.management.user_loan.show', $userLoan->id) }}">بایگانی</a></td>
+                                            <td class=" ">
+                                                <form action="{{ route('admin.management.user_loan.archive', $userLoan->id) }}" method="post">
+                                                    @csrf
+                                                    @method('put')
+                                                    <button type="submit" class="btn btn-block btn-dark">بایگانی</button>
+                                                </form>
+                                            </td>
                                         </tr>
                                     @endforeach
                                     </tbody>

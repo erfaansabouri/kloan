@@ -45,11 +45,11 @@
                     <li><a><i class="fa fa-desktop"></i> گزارش گیری <span
                                 class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="general_elements.html">وام و اقساط یک عضو</a></li>
-                            <li><a href="media_gallery.html">کل وام های دریافتی یک عضو</a></li>
-                            <li><a href="typography.html">موجودی حساب پس انداز یک عضو</a></li>
-                            <li><a href="icons.html">تفاوت وام بین دو ماه متوالی</a></li>
-                            <li><a href="glyphicons.html">کسورات ماهیانه</a></li>
+                            <li><a href="{{ route('admin.management.user_loan.index') }}">وام و اقساط یک عضو</a></li>
+                            <li><a href="{{ route('admin.management.user_loan.total_received_loans') }}">کل وام های دریافتی یک عضو</a></li>
+                            <li><a href="{{ route('admin.management.savings.user') }}">موجودی حساب پس انداز یک عضو</a></li>
+                            <li><a href="{{ route('admin.management.user_loan.two_month_diff') }}">تفاوت وام بین دو ماه متوالی</a></li>
+                            <li><a href="{{ route('admin.management.user_loan.index') }}">کسورات ماهیانه</a></li>
                         </ul>
                     </li>
                     <li >

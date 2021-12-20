@@ -61,4 +61,9 @@ class UserLoan extends Model
             ->where('user_loan_id', $this->id)
             ->sum('received_amount');
     }
+
+    public function scopeVisible($query)
+    {
+        return $query->where('archive_at', '=', null);
+    }
 }

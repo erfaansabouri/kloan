@@ -24,7 +24,7 @@ class InstallmentController extends Controller
             'year' => ['required','min:1300', 'max:1500', 'numeric']
         ]);
 
-        $date = (new Jalalian($request->year, $request->month, 1, 00, 00, 0))->toCarbon()->toDateTimeString();
+        $date = (new Jalalian($request->year, $request->month, 30, 00, 00, 0))->toCarbon()->toDateTimeString();
         $date = Carbon::parse($date);
 
         $activeUsers = User::query()
@@ -46,6 +46,7 @@ class InstallmentController extends Controller
                 {
                     Installment::query()
                         ->create([
+                            'user_id' => $userLoan->user_id,
                             'user_loan_id' => $userLoan->id,
                             'received_amount' => $userLoan->installment_amount,
                             'received_at' => Carbon::now(),
@@ -67,9 +68,15 @@ class InstallmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $request->validate([
+            'month' => ['nullable'],
+            'year' => ['nullable'],
+            'site_id' => ['nullable']
+        ]);
+
+
     }
 
     /**

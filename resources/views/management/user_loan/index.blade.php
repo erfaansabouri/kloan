@@ -12,6 +12,20 @@
                     <h4>لیست وام های پرداختی</h4>
                 </div>
             </div>
+            <form action="{{ route('admin.management.user_loan.index') }}" method="get">
+                @csrf
+                @method('get')
+                <div class="title_right">
+                    <div class="col-md-4 col-sm-4 col-xs-12 form-group pull-right top_search">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="جستجو بر اساس کد پرسنلی" name="search">
+                            <span class="input-group-btn">
+                      <button class="btn btn-default" type="submit">برو!</button>
+                    </span>
+                        </div>
+                    </div>
+                </div>
+            </form>
           
 
 

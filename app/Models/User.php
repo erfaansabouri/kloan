@@ -50,6 +50,11 @@ class User extends Authenticatable
         return $this->belongsTo(Site::class);
     }
 
+    public function installments()
+    {
+        return $this->hasMany(Installment::class);
+    }
+
     public function hasPaidSaving($month, $year)
     {
         $condition = Saving::query()
@@ -60,5 +65,35 @@ class User extends Authenticatable
 
         if($condition) return true;
         return false;
+    }
+
+    public function getTotalReceivedLoansAttribute()
+    {
+        $loanTypes = LoanType::query()
+            ->parent()
+            ->get();
+
+        $result = [];
+
+        foreach ($loanTypes as $loanType)
+        {
+            $childrenIds = $loanType->children()->pluck('id');
+            $totalAmount = UserLoan::query()
+                ->where('user_id', $this->id)
+                ->whereIn('loan_type_id', $childrenIds)
+                ->sum('total_amount');
+            $result[$loanType->title] = $totalAmount;
+        }
+
+        return $result;
+    }
+
+    public function getTotalInstallmentOfDate($month, $year)
+    {
+        return Installment::query()
+            ->where('user_id', $this->id)
+            ->where('month', $month)
+            ->where('year', $year)
+            ->sum('received_amount');
     }
 }

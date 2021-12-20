@@ -6,18 +6,94 @@ use App\Models\Installment;
 use App\Models\LoanType;
 use App\Models\User;
 use App\Models\UserLoan;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class UserLoanController extends Controller
 {
+    public function twoMonthDiff(Request $request)
+    {
+        $request->validate([
+            'first_month' => ['nullable'],
+            'first_year' => ['nullable'],
+            'second_month' => ['nullable'],
+            'second_year' => ['nullable'],
+        ]);
+
+        $users = User::query()
+            ->whereHas('installments', function ($q) use ($request){
+                $q->whereIn('month', [$request->first_month, $request->second_month]);
+                $q->whereIn('year', [$request->first_year, $request->second_year]);
+            })->get();
+
+        foreach ($users ?? [] as $user)
+        {
+            $user['total_first_date'] = $user->getTotalInstallmentOfDate($request->first_month, $request->first_year);
+            $user['total_second_date'] = $user->getTotalInstallmentOfDate($request->second_month, $request->second_year);
+        }
+
+        $firstMonth = $request->first_month;
+        $firstYear = $request->first_year;
+        $secondMonth = $request->second_month;
+        $secondYear = $request->second_year;
+        return view('management.user_loan.two_month_diff', compact('users', 'firstMonth', 'firstYear', 'secondMonth', 'secondYear'));
+
+    }
+
+    public function totalReceivedLoans(Request $request)
+    {
+        if($request->search)
+        {
+            $users = User::query()
+                ->where('status', 1)
+                ->where('identification_code', $request->search)
+                ->paginate(5)
+                ->append([
+                    'total_received_loans'
+                ]);
+
+            $loanTypes = LoanType::query()
+                ->parent()
+                ->get();
+
+            return view('management.user_loan.total_received_loans', compact('users', 'loanTypes'));
+        }
+        $users = User::query()
+            ->where('status', 1)
+            ->paginate(5)
+            ->append([
+                'total_received_loans'
+            ]);
+
+        $loanTypes = LoanType::query()
+            ->parent()
+            ->get();
+
+
+        return view('management.user_loan.total_received_loans', compact('users', 'loanTypes'));
+
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if($request->search)
+        {
+            $userLoans = UserLoan::query()
+                ->whereHas('user' , function ($q) use ($request){
+                    $q->where('identification_code', $request->search);
+                })
+                ->visible()
+                ->with(['user', 'loan'])
+                ->paginate(20);
+            return view('management.user_loan.index', compact('userLoans'));
+        }
+
         $userLoans = UserLoan::query()
+            ->visible()
             ->with(['user', 'loan'])
             ->paginate(20);
         return view('management.user_loan.index', compact('userLoans'));
@@ -27,6 +103,7 @@ class UserLoanController extends Controller
     {
         $userLoans = UserLoan::query()
             ->with(['user', 'loan'])
+            ->visible()
             ->whereHas('installments')
             ->orderByDesc('user_loan.id')
             ->paginate(20)
@@ -142,5 +219,17 @@ class UserLoanController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function archive($id)
+    {
+        $userLoan = UserLoan::query()
+            ->where('id', $id)
+            ->firstOrFail();
+
+        $userLoan->archive_at = Carbon::now();
+        $userLoan->save();
+        return redirect()->back()->with('result', 'با موفقیت بایگانی شد!');
+
     }
 }

@@ -60,11 +60,15 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         Route::prefix('user_loan')->group(function () {
             Route::get('/', [\App\Http\Controllers\UserLoanController::class, 'index'])->name('admin.management.user_loan.index');
             Route::get('/completed', [\App\Http\Controllers\UserLoanController::class, 'completedIndex'])->name('admin.management.user_loan.completed_index');
+            Route::get('/total-received-loans', [\App\Http\Controllers\UserLoanController::class, 'totalReceivedLoans'])->name('admin.management.user_loan.total_received_loans');
+            Route::get('/two-month-diff', [\App\Http\Controllers\UserLoanController::class, 'twoMonthDiff'])->name('admin.management.user_loan.two_month_diff');
             Route::get('/create', [\App\Http\Controllers\UserLoanController::class, 'create'])->name('admin.management.user_loan.create');
             Route::post('/create', [\App\Http\Controllers\UserLoanController::class, 'store'])->name('admin.management.user_loan.store');
             Route::get('/show/{id}', [\App\Http\Controllers\UserLoanController::class, 'show'])->name('admin.management.user_loan.show');
+            Route::put('/archive/{id}', [\App\Http\Controllers\UserLoanController::class, 'archive'])->name('admin.management.user_loan.archive');
         });
         Route::prefix('installments')->group(function () {
+            Route::get('/', [\App\Http\Controllers\InstallmentController::class, 'index'])->name('admin.management.installments.index');
             Route::get('receive-from-all-users', [\App\Http\Controllers\InstallmentController::class, 'receiveInstallmentsOfAllUsersCreate'])->name('admin.management.installments.receive_from_all_users_create');
             Route::post('receive-from-all-users', [\App\Http\Controllers\InstallmentController::class, 'receiveInstallmentsOfAllUsersStore'])->name('admin.management.installments.receive_from_all_users_store');
             Route::delete('destroy/{id}', [\App\Http\Controllers\InstallmentController::class, 'destroy'])->name('admin.management.installments.destroy');
@@ -72,6 +76,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         Route::prefix('savings')->group(function () {
             Route::get('receive-from-all-users', [\App\Http\Controllers\SavingController::class, 'receiveFromAllUsersCreate'])->name('admin.management.savings.receive_from_all_users_create');
             Route::post('receive-from-all-users', [\App\Http\Controllers\SavingController::class, 'receiveFromAllUsersStore'])->name('admin.management.savings.receive_from_all_users_store');
+            Route::get('user', [\App\Http\Controllers\SavingController::class, 'user'])->name('admin.management.savings.user');
         });
     });
 });

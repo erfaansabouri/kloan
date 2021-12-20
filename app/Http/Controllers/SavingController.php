@@ -9,6 +9,28 @@ use Illuminate\Http\Request;
 
 class SavingController extends Controller
 {
+    public function user(Request $request)
+    {
+        $request->validate([
+            'search' => ['nullable'],
+        ]);
+        if(!$request->search)
+        {
+            $savings = [];
+            return view('management.savings.user', compact('savings'));
+
+        }
+        $savings = Saving::query()
+            ->whereHas('user', function ($q) use ($request){
+                $q->where('identification_code', $request->search);
+            })
+            ->orderBy('year')
+            ->orderBy('month')
+            ->get();
+
+        return view('management.savings.user', compact('savings'));
+    }
+
     public function receiveFromAllUsersCreate()
     {
         $amount = Setting::getMonthlySavingAmount();

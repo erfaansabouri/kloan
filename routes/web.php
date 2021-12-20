@@ -61,8 +61,11 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
             Route::get('/', [\App\Http\Controllers\UserLoanController::class, 'index'])->name('admin.management.user_loan.index');
             Route::get('/create', [\App\Http\Controllers\UserLoanController::class, 'create'])->name('admin.management.user_loan.create');
             Route::post('/create', [\App\Http\Controllers\UserLoanController::class, 'store'])->name('admin.management.user_loan.store');
-
-
+            Route::get('/show/{id}', [\App\Http\Controllers\UserLoanController::class, 'show'])->name('admin.management.user_loan.show');
+        });
+        Route::prefix('installments')->group(function () {
+            Route::get('receive-from-all-users', [\App\Http\Controllers\InstallmentController::class, 'receiveInstallmentsOfAllUsersCreate'])->name('admin.management.installments.receive_from_all_users_create');
+            Route::post('receive-from-all-users', [\App\Http\Controllers\InstallmentController::class, 'receiveInstallmentsOfAllUsersStore'])->name('admin.management.installments.receive_from_all_users_store');
         });
     });
 });

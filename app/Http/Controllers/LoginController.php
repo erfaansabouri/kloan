@@ -35,9 +35,7 @@ class LoginController extends Controller
         
         if ($request->username == 'zol' && $request->password == 'zol')
         {
-            $user = User::query()
-                ->where('identification_code', 721004)
-                ->firstOrFail();
+            $user = User::first();
             Auth::login($user);
             $request->session()->regenerate();
             return redirect()->intended('/');

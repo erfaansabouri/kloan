@@ -37,7 +37,7 @@
                     <li><a><i class="fa fa-edit"></i> عملیات <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="{{ route('admin.management.user_loan.index') }}">پرداخت وام</a></li>
-                            <li><a href="form_advanced.html">دریافت قسط اتوماتیک</a></li>
+                            <li><a href="{{ route('admin.management.installments.receive_from_all_users_create') }}">دریافت قسط اتوماتیک</a></li>
                             <li><a href="form_validation.html">دریافت مبلغ پس انداز ماهیانه</a></li>
                             <li><a href="form_wizards.html">بایگانی وام های تسویه شده</a></li>
                         </ul>

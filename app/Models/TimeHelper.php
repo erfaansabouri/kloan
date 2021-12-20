@@ -13,6 +13,6 @@ class TimeHelper
         $year = (string) $array[0];
         $month = (string)$array[1];
         $day = (string)$array[2];
-        return (new \Morilog\Jalali\Jalalian($year, $month, $day))->format('%A, %d %B %Y');
+        return (new \Morilog\Jalali\Jalalian($year, $month, $day))->format('%Y/%m/%d');
     }
 }

@@ -61,6 +61,16 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">انتخاب زیر کروه وام</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select class="form-control" name="loan_type_id">
+                                            @foreach($loanTypes as $loanType)
+                                                <option value="{{ $loanType->id }}">{{ $loanType->title }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">مبلغ کل وام
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">

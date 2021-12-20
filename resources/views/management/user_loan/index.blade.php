@@ -39,8 +39,7 @@
                                 <table class="table table-striped jambo_table bulk_action">
                                     <thead>
                                     <tr class="headings">
-
-                                        <th class="column-title">شماره ردیف</th>
+                                        <th class="column-title">ردیف</th>
                                         <th class="column-title">نام</th>
                                         <th class="column-title">نام خانوادگی</th>
                                         <th class="column-title">کد پرسنلی</th>
@@ -51,7 +50,8 @@
                                         <th class="column-title">مبلغ هر قسط</th>
                                         <th class="column-title">تاریخ وصول اولین قسط</th>
                                         <th class="column-title">تاریخ پرداخت وام</th>
-                                     
+                                        <th class="column-title">عملیات</th>
+
                                     </tr>
                                     </thead>
 
@@ -64,12 +64,12 @@
                                             <td class=" ">{{ $userLoan->user->identification_code }}</td>
                                             <td class=" ">{{ $userLoan->user->accounting_code ?? "تعریف نشده"}}</td>
                                             <td class=" ">{{ $userLoan->loan->title }}({{ $userLoan->loan->code }})</td>
-                                            <td class=" ">{{ $userLoan->total_amount }}</td>
-                                            <td class=" ">{{ $userLoan->installment_count }}</td>
-                                            <td class=" ">{{ $userLoan->installment_amount }}</td>
+                                            <td class=""> {{ $userLoan->total_amount }} ریال</td>
+                                            <td class="">{{ $userLoan->installment_count }}</td>
+                                            <td class="">{{ $userLoan->installment_amount }} ریال</td>
                                             <td class=" ">{{(new \App\Models\TimeHelper)->georgian2jalali($userLoan->first_installment_received_at) }}</td>
                                             <td class=" ">{{(new \App\Models\TimeHelper)->georgian2jalali($userLoan->loan_paid_to_user_at) }}</td>
-
+                                            <td class=" "><a href="{{ route('admin.management.user_loan.show', $userLoan->id) }}">نمایش</a></td>
                                         </tr>
                                     @endforeach
                                     </tbody>

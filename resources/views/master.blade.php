@@ -68,6 +68,9 @@
         }
         $(this).val(foo);
     });
+    $(".comma_number").each(function() {
+        $(this).format({format:"#,###", locale:"en"});
+    });
 </script>
 </body>
 </html>

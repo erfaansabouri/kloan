@@ -142,6 +142,7 @@ return [
         'identification_code' => [
             'required' => 'کد پرسنلی الزامی است.',
             'unique' => 'این کد پرسنلی قبلا در سیستم ثبت شده است.',
+            'exists' => 'کد پرسنلی در سامانه ثبت نشده است.'
         ],
 
         'accounting_code' => [
@@ -155,6 +156,30 @@ return [
 
         'site_id' => [
             'required' => 'محل خدمت الزامی است.',
+        ],
+        'total_amount' => [
+            'required' => 'مبلغ کل الزامی است.',
+        ],
+        'installment_count' => [
+            'required' => 'تعداد قسط الزامی است.',
+        ],
+        'first_installment_received_at_day' => [
+            'required' => 'روز اولین قسط الزامی است.',
+        ],
+        'first_installment_received_at_month' => [
+            'required' => 'ماه اولین قسط الزامی است.',
+        ],
+        'first_installment_received_at_year' => [
+            'required' => 'سال اولین قسط الزامی است.',
+        ],
+        'loan_paid_to_user_at_day' => [
+            'required' => 'روز پرداخت وام الزامی است.',
+        ],
+        'loan_paid_to_user_at_month' => [
+            'required' => 'ماه پرداخت وام الزامی است.',
+        ],
+        'loan_paid_to_user_at_year' => [
+            'required' => 'سال پرداخت وام الزامی است.',
         ],
     ],
 

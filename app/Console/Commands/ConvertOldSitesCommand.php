@@ -41,28 +41,23 @@ class ConvertOldSitesCommand extends Command
     public function handle()
     {
         Site::query()->truncate();
-        $oldSites = DB::connection('mysql2')
-            ->table('sh')
+        $oldUsers = DB::connection('mysql2')
+            ->table('users')
             ->get();
 
-        foreach ($oldSites as $oldSite)
+        foreach ($oldUsers as $oldUser)
         {
-            $alreadyExists = Site::query()
-                ->where('title', $oldSite->name)->first();
+            if(empty($oldUser->site_title)) continue;
 
-            if(!$alreadyExists)
-            {
-                $newSite = new Site();
-                $newSite->code = $oldSite->codsh;
-                $newSite->title = $this->arabicToPersian($oldSite->name);
-                $newSite->save();
-            }
+            if(Site::query()->whereTitle($this->arabicToPersian($oldUser->site_title))->first()) continue;
 
-            else{
-                $this->info($oldSite->codsh . " Duplicate alert.");
-            }
+            Site::query()
+                ->create([
+                    'title' => $this->arabicToPersian($oldUser->site_title),
+                ]);
         }
-        $this->info("Converting ". $this->signature . " Done!");
+
+        $this->info('Sites Done!');
     }
 
     private function arabicToPersian($string)

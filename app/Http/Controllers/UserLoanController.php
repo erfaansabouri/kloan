@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UsersExport;
 use App\Models\Installment;
 use App\Models\LoanType;
 use App\Models\User;
 use App\Models\UserLoan;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserLoanController extends Controller
 {
@@ -58,12 +60,7 @@ class UserLoanController extends Controller
 
             return view('management.user_loan.total_received_loans', compact('users', 'loanTypes'));
         }
-        $users = User::query()
-            ->where('status', 1)
-            ->paginate(5)
-            ->append([
-                'total_received_loans'
-            ]);
+        $users = [];
 
         $loanTypes = LoanType::query()
             ->parent()
@@ -106,10 +103,25 @@ class UserLoanController extends Controller
             ->visible()
             ->whereHas('installments')
             ->orderByDesc('user_loan.id')
-            ->paginate(20)
-            ->append([
+            ->get();
+
+        $completedLoanIds = [];
+
+        foreach ($userLoans as $userLoan)
+        {
+            if($userLoan->isReceivedCompletely())
+                $completedLoanIds[] = $userLoan->id;
+        }
+
+        $userLoans = UserLoan::query()
+            ->with(['user', 'loan'])
+            ->whereIn('id', $completedLoanIds)
+            ->visible()
+            ->whereHas('installments')
+            ->orderByDesc('user_loan.id')
+            ->get()->each->append([
                 'total_received_installment_amount',
-                'total_remained_installment_amount',
+                'total_remained_installment_amount'
             ]);
 
         return view('management.user_loan.completed_index', compact('userLoans'));

@@ -42,30 +42,28 @@ class ConvertOldUsersCommand extends Command
     {
         User::query()->truncate();
         $oldUsers = DB::connection('mysql2')
-            ->table('per')
+            ->table('users')
             ->get();
 
         foreach ($oldUsers as $oldUser)
         {
             $alreadyExists = User::query()
-                ->where('identification_code', "23" . (string)$oldUser->codh)
+                ->where('identification_code', (string)$oldUser->identification_code)
                 ->first();
 
-            if(!$alreadyExists)
-            {
-                $newUser = new User();
-                $newUser->first_name = $this->arabicToPersian($oldUser->name);
-                $newUser->last_name = $this->arabicToPersian($oldUser->lname);
-                $newUser->status = $oldUser->vz == "True" ? false : true;
-                $newUser->identification_code = "23" . (string)$oldUser->codh;
-                $newUser->site_id = $this->getSiteId($this->arabicToPersian($oldUser->nsh));
-                $newUser->save();
-            }
+            if($alreadyExists) continue;
 
-            else{
-                $this->info($oldUser->codh . " Duplicate alert.");
 
-            }
+            $newUser = new User();
+            $newUser->first_name = $this->arabicToPersian($oldUser->first_name);
+            $newUser->last_name = $this->arabicToPersian($oldUser->last_name);
+            $newUser->status = true;
+            $newUser->identification_code = (string)$oldUser->identification_code;
+            $newUser->accounting_code = (string)$oldUser->accounting_code;
+            $newUser->national_code = (string)$oldUser->national_code;
+            $newUser->site_id = $this->getSiteId($this->arabicToPersian($oldUser->site_title));
+            $newUser->save();
+
 
         }
         $this->info("Converting ". $this->signature . " Done!");

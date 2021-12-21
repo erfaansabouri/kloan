@@ -2,19 +2,20 @@
 
 namespace App\Console\Commands;
 
-use App\Models\LoanType;
+use App\Models\Saving;
 use App\Models\Site;
+use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
-class ConvertLoanTypesCommand extends Command
+class ConvertOldSavingsCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'convert:loan_types';
+    protected $signature = 'convert:savings';
 
     /**
      * The console command description.
@@ -40,37 +41,33 @@ class ConvertLoanTypesCommand extends Command
      */
     public function handle()
     {
-        LoanType::query()->truncate();
-        $oldLoanGroups = DB::connection('mysql2')
-            ->table('goroh')
+        Saving::query()->truncate();
+        $oldSavings = DB::connection('mysql2')
+            ->table('savings')
             ->get();
 
-
-
-        foreach ($oldLoanGroups as $oldLoanGroup)
+        foreach ($oldSavings as $oldSaving)
         {
-            $newLoanType = new LoanType();
-            $newLoanType->parent_id = null;
-            $newLoanType->code = $oldLoanGroup->codg;
-            $newLoanType->title = $this->arabicToPersian($oldLoanGroup->gh);
-            $newLoanType->save();
-
-            // add sub groups
-            $oldLoanSubGroups = DB::connection('mysql2')
-                ->table('nb')
-                ->where('codg' , $oldLoanGroup->codg)
-                ->get();
-
-            foreach ($oldLoanSubGroups as $oldLoanSubGroup)
-            {
-                $newSubLoanType = new LoanType();
-                $newSubLoanType->parent_id = $newLoanType->id;
-                $newSubLoanType->code = $oldLoanSubGroup->codb;
-                $newSubLoanType->title = $this->arabicToPersian($oldLoanSubGroup->nb);
-                $newSubLoanType->save();
-            }
+            Saving::query()
+                ->create([
+                    'month' => '5',
+                    'year' => '1400',
+                    'amount' => $oldSaving->saving,
+                    'user_id' => $this->getUserIdWithIdentificationCode($oldSaving->identification_code),
+                ]);
         }
+
+        $this->info('converting savings done.');
     }
+
+    private function getUserIdWithIdentificationCode($idCode)
+    {
+        return User::query()
+            ->where('identification_code', $idCode)
+            ->firstOrFail()
+            ->id;
+    }
+
 
     private function arabicToPersian($string)
     {

@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/user-loans-export', [\App\Http\Controllers\Controller::class, 'userLoanExport'])->name('export.user_loan');
 Route::get('/', [\App\Http\Controllers\WelcomeController::class, 'index'])->name('home')->middleware(['auth']);
 Route::get('/login', [\App\Http\Controllers\LoginController::class, 'show'])->name('login');
 Route::post('/login', [\App\Http\Controllers\LoginController::class, 'authenticate'])->name('login.post');

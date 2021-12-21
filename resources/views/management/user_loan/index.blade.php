@@ -12,21 +12,41 @@
                     <h4>لیست وام های پرداختی</h4>
                 </div>
             </div>
-            <form action="{{ route('admin.management.user_loan.index') }}" method="get">
-                @csrf
-                @method('get')
-                <div class="title_right">
-                    <div class="col-md-4 col-sm-4 col-xs-12 form-group pull-right top_search">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="جستجو بر اساس کد پرسنلی" name="search">
-                            <span class="input-group-btn">
-                      <button class="btn btn-default" type="submit">برو!</button>
+            <div class="clearfix"></div>
+
+            <div class="row">
+                <form action="{{ route('admin.management.user_loan.index') }}" method="get">
+                    @csrf
+                    @method('get')
+                    <div class="">
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="جستجو بر اساس کد پرسنلی" name="search">
+                                <span class="input-group-btn">
+                      <button class="btn btn-default" type="submit">جستوجو کنید!</button>
                     </span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </form>
-          
+                </form>
+
+                <form action="{{ route('export.user_loan') }}" method="get">
+                    @csrf
+                    @method('get')
+                    <div class="">
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="جستجو بر اساس کد پرسنلی" name="identification_code">
+                                <span class="input-group-btn">
+                      <button class="btn btn-default" type="submit">دریافت خروجی اکسل از وام ها و اقساط یک عضو خاص!</button>
+                    </span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
 
 
             <div class="clearfix"></div>

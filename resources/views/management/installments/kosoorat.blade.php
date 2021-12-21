@@ -90,7 +90,7 @@
                                         @php $hTotal += $user->total_saving @endphp
                                         @php $firstCounter = 0; @endphp
                                         @foreach($loanTypes as $loanType)
-                                            <th class=" comma_numbers column-title">{{ @($user->total_installments)[$loanType->title] }} ریال</th>
+                                            <td class=" comma_numbers">{{ @($user->total_installments)[$loanType->title] }} ریال</td>
                                             @php $hTotal += @($user->total_installments)[$loanType->title] @endphp
                                             @php $dynamicColsSum[$firstCounter++] += @($user->total_installments)[$loanType->title] @endphp
                                         @endforeach

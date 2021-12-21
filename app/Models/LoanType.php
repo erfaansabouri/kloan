@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class LoanType extends Model
 {
+    protected $guarded = [];
     /* scopes */
     public function scopeParent($query)
     {

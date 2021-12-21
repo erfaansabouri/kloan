@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Installment;
+use App\Models\LoanType;
 use App\Models\User;
 use App\Models\UserLoan;
 use Carbon\Carbon;
@@ -11,6 +12,33 @@ use Morilog\Jalali\Jalalian;
 
 class InstallmentController extends Controller
 {
+
+    public function kosoorat(Request $request)
+    {
+        $request->validate([
+            'month' => ['nullable', 'min:1', 'max:12', 'numeric'],
+            'year' => ['nullable','min:1300', 'max:1500', 'numeric'],
+            'site_id' => ['nullable','min:1300', 'max:1500', 'numeric'],
+        ]);
+
+        $users = User::query()
+            ->whereHas('installments', function ($q) use ($request){
+                $q->where('month', $request->month)->where('year', $request->year);
+            })->orWhereHas('savings', function ($q2) use ($request){
+                $q2->where('month', $request->month)->where('year', $request->year);
+            })->get();
+
+        foreach ($users as $user)
+        {
+            $user['total_saving'] = $user->getTotalSavingsDate($request->month, $request->year);
+            $user['total_installments'] = $user->getTotalPaidInstallmentsByGroup($request->month, $request->year);
+        }
+
+        $loanTypes = LoanType::query()
+            ->parent()
+            ->get();
+        return view('management.installments.kosoorat', compact('users', 'loanTypes'));
+    }
 
     public function receiveInstallmentsOfAllUsersCreate(Request $request)
     {

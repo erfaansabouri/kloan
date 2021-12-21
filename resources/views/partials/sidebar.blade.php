@@ -49,7 +49,7 @@
                             <li><a href="{{ route('admin.management.user_loan.total_received_loans') }}">کل وام های دریافتی یک عضو</a></li>
                             <li><a href="{{ route('admin.management.savings.user') }}">موجودی حساب پس انداز یک عضو</a></li>
                             <li><a href="{{ route('admin.management.user_loan.two_month_diff') }}">تفاوت وام بین دو ماه متوالی</a></li>
-                            <li><a href="{{ route('admin.management.user_loan.index') }}">کسورات ماهیانه</a></li>
+                            <li><a href="{{ route('admin.management.installments.kosoorat') }}">کسورات ماهیانه</a></li>
                         </ul>
                     </li>
                     <li >

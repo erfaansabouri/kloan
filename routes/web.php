@@ -68,7 +68,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
             Route::put('/archive/{id}', [\App\Http\Controllers\UserLoanController::class, 'archive'])->name('admin.management.user_loan.archive');
         });
         Route::prefix('installments')->group(function () {
-            Route::get('/', [\App\Http\Controllers\InstallmentController::class, 'index'])->name('admin.management.installments.index');
+            Route::get('kosroorat', [\App\Http\Controllers\InstallmentController::class, 'kosoorat'])->name('admin.management.installments.kosoorat');
             Route::get('receive-from-all-users', [\App\Http\Controllers\InstallmentController::class, 'receiveInstallmentsOfAllUsersCreate'])->name('admin.management.installments.receive_from_all_users_create');
             Route::post('receive-from-all-users', [\App\Http\Controllers\InstallmentController::class, 'receiveInstallmentsOfAllUsersStore'])->name('admin.management.installments.receive_from_all_users_store');
             Route::delete('destroy/{id}', [\App\Http\Controllers\InstallmentController::class, 'destroy'])->name('admin.management.installments.destroy');

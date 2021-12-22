@@ -45,6 +45,21 @@
                     </div>
                 </form>
 
+                <form action="{{ route('export.all_user_loans') }}" method="get">
+                    @csrf
+                    @method('get')
+                    <div class="">
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                            <div class="input-group">
+                                <input disabled="disabled" type="text" class="form-control" placeholder="این قسمت را خالی بگذارید" name="identification_code">
+                                <span class="input-group-btn">
+                      <button class="btn btn-default" type="submit">دریافت خروجی اکسل از مانده وام های تمام پرسنل!</button>
+                    </span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
             </div>
 
 
@@ -70,21 +85,24 @@
 
                         <div class="x_content">
                             <div class="table-responsive">
-                                <table class="table table-striped jambo_table bulk_action">
+                                <table class="table table-striped table-bordered jambo_table bulk_action">
                                     <thead>
                                     <tr class="headings">
                                         <th class="column-title">ردیف</th>
+                                        <th class="column-title">کد پرسنلی</th>
+                                        <th class="column-title">شناسه حسابداری</th>
                                         <th class="column-title">نام</th>
                                         <th class="column-title">نام خانوادگی</th>
-                                        <th class="column-title">کد پرسنلی</th>
-                                        <th class="column-title">کد حسابداری</th>
                                         <th class="column-title">وام(کد)</th>
                                         <th class="column-title">مبلغ کل وام</th>
                                         <th class="column-title">تعداد قسط</th>
                                         <th class="column-title">مبلغ هر قسط</th>
-                                        <th class="column-title">تاریخ وصول اولین قسط</th>
+                                        <th class="column-title">تعداد اقساط باقی مانده</th>
+                                        <th class="column-title">مبلغ باقی مانده از وام</th>
                                         <th class="column-title">تاریخ پرداخت وام</th>
-                                        <th class="column-title">عملیات</th>
+                                        <th class="column-title">تاریخ وصول اولین قسط</th>
+                                        <th class="column-title">نمایش</th>
+                                        <th class="column-title">ویرایش</th>
 
                                     </tr>
                                     </thead>
@@ -93,17 +111,20 @@
                                     @foreach($userLoans as $userLoan)
                                         <tr class="even pointer">
                                             <td class=" ">{{ $userLoan->id }}</td>
-                                            <td class=" ">{{ $userLoan->user->first_name }}</td>
-                                            <td class=" ">{{ $userLoan->user->last_name }}</td>
                                             <td class=" ">{{ $userLoan->user->identification_code }}</td>
                                             <td class=" ">{{ $userLoan->user->accounting_code ?? "تعریف نشده"}}</td>
+                                            <td class=" ">{{ $userLoan->user->first_name }}</td>
+                                            <td class=" ">{{ $userLoan->user->last_name }}</td>
                                             <td class=" ">{{ $userLoan->loan->title }}({{ $userLoan->loan->code }})</td>
                                             <td class=""> <span class="comma_numbers">{{ $userLoan->total_amount }}</span> </td>
                                             <td class="">{{ $userLoan->installment_count }}</td>
                                             <td class=""><span class="comma_numbers">{{ $userLoan->installment_amount }}</span> </td>
-                                            <td class=" ">{{(new \App\Models\TimeHelper)->georgian2jalali($userLoan->first_installment_received_at) }}</td>
+                                            <td class=""><span class="comma_numbers">{{ $userLoan->remained_installment_count }}</span> </td>
+                                            <td class=""><span class="comma_numbers">{{ $userLoan->total_remained_installment_amount }}</span> </td>
                                             <td class=" ">{{(new \App\Models\TimeHelper)->georgian2jalali($userLoan->loan_paid_to_user_at) }}</td>
+                                            <td class=" ">{{(new \App\Models\TimeHelper)->georgian2jalali($userLoan->first_installment_received_at) }}</td>
                                             <td class=" "><a href="{{ route('admin.management.user_loan.show', $userLoan->id) }}">نمایش</a></td>
+                                            <td class=" "><a href="{{ route('admin.management.user_loan.edit', $userLoan->id) }}">ویرایش</a></td>
                                         </tr>
                                     @endforeach
                                     </tbody>

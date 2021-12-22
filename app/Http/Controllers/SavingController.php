@@ -24,8 +24,8 @@ class SavingController extends Controller
             ->whereHas('user', function ($q) use ($request){
                 $q->where('identification_code', $request->search);
             })
-            ->orderBy('year')
-            ->orderBy('month')
+            ->orderBy('year', 'asc')
+            ->orderBy('month', 'asc')
             ->get();
 
         return view('management.savings.user', compact('savings'));
@@ -118,7 +118,9 @@ class SavingController extends Controller
      */
     public function edit($id)
     {
-        //
+        $saving = Saving::query()->findOrFail($id);
+        return view('management.savings.edit', compact('saving'));
+
     }
 
     /**
@@ -130,7 +132,14 @@ class SavingController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $saving = Saving::query()->findOrFail($id);
+        $request->validate([
+            'amount' => ['required', 'numeric'],
+        ]);
+        $saving->amount = $request->amount;
+        $saving->save();
+        return redirect()->back()->with('result', 'با موفقیت ویرایش شد!');
+
     }
 
     /**

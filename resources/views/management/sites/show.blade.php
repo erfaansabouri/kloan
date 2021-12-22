@@ -63,14 +63,14 @@
                                 </div>
                                 <div class="x_content">
                                     <div class="table-responsive">
-                                        <table class="table table-striped jambo_table bulk_action">
+                                        <table class="table table-striped table-bordered jambo_table bulk_action">
                                             <thead>
                                             <tr class="headings">
                                                 <th class="column-title">شماره ردیف</th>
                                                 <th class="column-title">نام</th>
                                                 <th class="column-title">نام خانوادگی</th>
                                                 <th class="column-title">کد پرسنلی</th>
-                                                <th class="column-title">کد حسابداری</th>
+                                                <th class="column-title">شناسه حسابداری</th>
                                                 <th class="column-title">محل خدمت</th>
                                                 <th class="column-title">وضعیت</th>
                                             </tr>

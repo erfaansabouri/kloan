@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/user-loans-export', [\App\Http\Controllers\Controller::class, 'userLoanExport'])->name('export.user_loan');
+Route::get('/all-user-loans-export', [\App\Http\Controllers\Controller::class, 'allUserLoansExport'])->name('export.all_user_loans');
+Route::get('/user-loan-types-export', [\App\Http\Controllers\Controller::class, 'userLoanTypesExport'])->name('export.user_loan_types');
+
+
 Route::get('/', [\App\Http\Controllers\WelcomeController::class, 'index'])->name('home')->middleware(['auth']);
 Route::get('/login', [\App\Http\Controllers\LoginController::class, 'show'])->name('login');
 Route::post('/login', [\App\Http\Controllers\LoginController::class, 'authenticate'])->name('login.post');
@@ -64,8 +68,10 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
             Route::get('/total-received-loans', [\App\Http\Controllers\UserLoanController::class, 'totalReceivedLoans'])->name('admin.management.user_loan.total_received_loans');
             Route::get('/two-month-diff', [\App\Http\Controllers\UserLoanController::class, 'twoMonthDiff'])->name('admin.management.user_loan.two_month_diff');
             Route::get('/create', [\App\Http\Controllers\UserLoanController::class, 'create'])->name('admin.management.user_loan.create');
-            Route::post('/create', [\App\Http\Controllers\UserLoanController::class, 'store'])->name('admin.management.user_loan.store');
+            Route::post('/store', [\App\Http\Controllers\UserLoanController::class, 'store'])->name('admin.management.user_loan.store');
             Route::get('/show/{id}', [\App\Http\Controllers\UserLoanController::class, 'show'])->name('admin.management.user_loan.show');
+            Route::get('/edit/{id}', [\App\Http\Controllers\UserLoanController::class, 'edit'])->name('admin.management.user_loan.edit');
+            Route::put('/update/{id}', [\App\Http\Controllers\UserLoanController::class, 'update'])->name('admin.management.user_loan.update');
             Route::put('/archive/{id}', [\App\Http\Controllers\UserLoanController::class, 'archive'])->name('admin.management.user_loan.archive');
         });
         Route::prefix('installments')->group(function () {
@@ -73,11 +79,15 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
             Route::get('receive-from-all-users', [\App\Http\Controllers\InstallmentController::class, 'receiveInstallmentsOfAllUsersCreate'])->name('admin.management.installments.receive_from_all_users_create');
             Route::post('receive-from-all-users', [\App\Http\Controllers\InstallmentController::class, 'receiveInstallmentsOfAllUsersStore'])->name('admin.management.installments.receive_from_all_users_store');
             Route::delete('destroy/{id}', [\App\Http\Controllers\InstallmentController::class, 'destroy'])->name('admin.management.installments.destroy');
+            Route::get('edit/{id}', [\App\Http\Controllers\InstallmentController::class, 'edit'])->name('admin.management.installments.edit');
+            Route::put('update/{id}', [\App\Http\Controllers\InstallmentController::class, 'update'])->name('admin.management.installments.update');
         });
         Route::prefix('savings')->group(function () {
             Route::get('receive-from-all-users', [\App\Http\Controllers\SavingController::class, 'receiveFromAllUsersCreate'])->name('admin.management.savings.receive_from_all_users_create');
             Route::post('receive-from-all-users', [\App\Http\Controllers\SavingController::class, 'receiveFromAllUsersStore'])->name('admin.management.savings.receive_from_all_users_store');
             Route::get('user', [\App\Http\Controllers\SavingController::class, 'user'])->name('admin.management.savings.user');
+            Route::get('edit/{id}', [\App\Http\Controllers\SavingController::class, 'edit'])->name('admin.management.savings.edit');
+            Route::put('update/{id}', [\App\Http\Controllers\SavingController::class, 'update'])->name('admin.management.savings.update');
         });
     });
 });

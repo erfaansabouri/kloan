@@ -13,7 +13,7 @@
                 </div>
             </div>
 
-          
+
 
 
             <div class="clearfix"></div>
@@ -34,7 +34,7 @@
 
                         <div class="x_content">
                             <div class="table-responsive">
-                                <table class="table table-striped jambo_table bulk_action">
+                                <table class="table table-striped table-bordered jambo_table bulk_action">
                                     <thead>
                                     <tr class="headings">
                                         <th class="column-title">ردیف</th>
@@ -47,6 +47,7 @@
                                         <th class="column-title">کل تعداد اقساط پرداختی</th>
                                         <th class="column-title">مبلغ باقی مانده</th>
                                         <th class="column-title">وضعیت پرداخت اقساط</th>
+                                        <th class="column-title">تاریخ آخرین قسط پرداختی</th>
                                         <th class="column-title">عملیات</th>
 
                                     </tr>
@@ -54,7 +55,7 @@
 
                                     <tbody>
                                     @foreach($userLoans as $userLoan)
-                                        <tr class="even pointer @if($userLoan->total_remained_installment_amount == 0) bg-green @endif">
+                                        <tr class="even pointer">
                                             <td class=" ">{{ $userLoan->id }}</td>
                                             <td class=" ">{{ $userLoan->user->first_name }}</td>
                                             <td class=" ">{{ $userLoan->user->last_name }}</td>
@@ -65,6 +66,7 @@
                                             <td class=""> <span class="comma_numbers">{{ $userLoan->installments->count() }}</span></td>
                                             <td class=""><span class="comma_numbers">{{ $userLoan->total_remained_installment_amount }}</span> </td>
                                             <td class="">@if($userLoan->total_remained_installment_amount == 0) پرداخت کامل @endif @if($userLoan->total_remained_installment_amount > 0) پرداخت ناقص @endif</td>
+                                            <td class="">@if($userLoan->last_installment) {{ $userLoan->last_installment->month }}/{{ $userLoan->last_installment->year }} @endif</td>
                                             <td class=" ">
                                                 <form action="{{ route('admin.management.user_loan.archive', $userLoan->id) }}" method="post">
                                                     @csrf

@@ -75,11 +75,12 @@ class InstallmentController extends Controller
             {
                 if(!$userLoan->isReceivedCompletely() && !$userLoan->isInstallmentReceivedForMonthYear($request->month, $request->year))
                 {
+                    $receivedAmount = $userLoan->calculateReceivedAmount();
                     Installment::query()
                         ->create([
                             'user_id' => $userLoan->user_id,
                             'user_loan_id' => $userLoan->id,
-                            'received_amount' => $userLoan->installment_amount,
+                            'received_amount' => $receivedAmount,
                             'received_at' => Carbon::now(),
                             'month' => $request->month,
                             'year' => $request->year,
@@ -150,7 +151,10 @@ class InstallmentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $installment = Installment::query()
+            ->findOrFail($id);
+
+        return view('management.installments.edit', compact('installment'));
     }
 
     /**
@@ -162,7 +166,17 @@ class InstallmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'received_amount' => ['required', 'numeric'],
+        ]);
+
+        $installment = Installment::query()
+            ->findOrFail($id);
+
+        $installment->received_amount = $request->received_amount;
+        $installment->save();
+        return redirect()->back()->with('result', 'با موفقیت ویرایش شد!');
+
     }
 
     /**

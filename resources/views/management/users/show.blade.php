@@ -59,7 +59,7 @@
                                         <br>
                                         <b>کد پرسنلی:</b> {{ $user->identification_code }}
                                         <br>
-                                        <b>کد حسابداری:</b> {{ $user->accounting_code }}
+                                        <b>شناسه حسابداری:</b> {{ $user->accounting_code }}
                                         <br>
                                         <b>محل خدمت:</b> {{ $user->site->title }}
                                     </div>

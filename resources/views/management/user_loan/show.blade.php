@@ -82,7 +82,7 @@
                                         <b>کد پرسنلی:</b> {{ $userLoan->user->identification_code }}
                                         <br>
                                         <br>
-                                        <b>کد حسابداری:</b> {{ $userLoan->user->accounting_code }}
+                                        <b>شناسه حسابداری:</b> {{ $userLoan->user->accounting_code }}
                                         <br>
                                         <br>
                                         <b>محل خدمت:</b> {{ $userLoan->user->site->title }}
@@ -105,14 +105,15 @@
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="table-responsive">
-                                        <table class="table table-striped jambo_table bulk_action">
+                                        <table class="table table-striped table-bordered jambo_table bulk_action">
                                             <thead>
                                             <tr class="headings">
                                                 <th class="column-title">شماره ردیف</th>
-                                                <th class="column-title">مبلغ دریافتی</th>
+                                                <th class="column-title">مبلغ قسط</th>
                                                 <th class="column-title">ماه</th>
                                                 <th class="column-title">سال</th>
-                                                <th class="column-title">عملیات</th>
+                                                <th class="column-title">حذف</th>
+                                                <th class="column-title">ویرایش</th>
                                             </tr>
                                             </thead>
 
@@ -131,6 +132,9 @@
                                                             حذف
                                                         </button>
                                                     </form>
+                                                </td>
+                                                <td>
+                                                    <a href="{{ route('admin.management.installments.edit', $installment->id) }}"><button class="btn btn-primary">ویرایش مبلغ قسط</button></a>
                                                 </td>
                                             </tr>
                                             @endforeach

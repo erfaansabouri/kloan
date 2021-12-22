@@ -122,7 +122,8 @@ class UserLoanController extends Controller
             ->orderByDesc('user_loan.id')
             ->get()->each->append([
                 'total_received_installment_amount',
-                'total_remained_installment_amount'
+                'total_remained_installment_amount',
+                'last_installment',
             ]);
 
         return view('management.user_loan.completed_index', compact('userLoans'));
@@ -208,7 +209,16 @@ class UserLoanController extends Controller
      */
     public function edit($id)
     {
-        //
+        $userLoan = UserLoan::query()
+            ->with(['user', 'loan'])
+            ->where('id', $id)
+            ->firstOrFail()
+            ->append([
+                'total_received_installment_amount',
+                'total_remained_installment_amount',
+            ]);
+        return view('management.user_loan.edit', compact('userLoan'));
+
     }
 
     /**
@@ -220,7 +230,24 @@ class UserLoanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $userLoan = UserLoan::query()
+            ->where('id', $id)
+            ->firstOrFail();
+
+        $request->validate([
+            'total_amount' => ['required', 'numeric'],
+            'installment_count' => ['required', 'numeric'],
+            'installment_amount' => ['required', 'numeric'],
+        ]);
+
+        $userLoan->total_amount = $request->total_amount;
+        $userLoan->installment_count = $request->installment_count;
+        $userLoan->installment_amount = $request->installment_amount;
+
+        $userLoan->save();
+
+        return redirect()->back()->with('result', 'با موفقیت ویرایش شد!');
+
     }
 
     /**

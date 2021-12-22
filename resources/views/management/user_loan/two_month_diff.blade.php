@@ -70,7 +70,7 @@
                     </div>
                     <div class="x_content">
                         <div class="table-responsive">
-                            <table class="table table-striped jambo_table bulk_action">
+                            <table class="table table-striped table-bordered jambo_table bulk_action">
                                 <thead>
                                 <tr class="headings">
                                     <th class="column-title">ردیف</th>

@@ -44,7 +44,7 @@
                         </div>
                         <div class="x_content">
                             <div class="table-responsive">
-                                <table class="table table-striped jambo_table bulk_action">
+                                <table class="table table-striped table-bordered jambo_table bulk_action">
                                     <thead>
                                     <tr class="headings">
                                         <th class="column-title">شماره ردیف</th>
@@ -55,6 +55,7 @@
                                         <th class="column-title">ماه</th>
                                         <th class="column-title">سال</th>
                                         <th class="column-title">مبلغ پس انداز ماه</th>
+                                        <th class="column-title">ویرایش</th>
                                         <th class="column-title">پس انداز کل</th>
                                     </tr>
                                     </thead>
@@ -71,6 +72,7 @@
                                             <td class=" ">{{ @$saving->month }}</td>
                                             <td class=" ">{{ @$saving->year }}</td>
                                             <td class="comma_numbers">{{ @$saving->amount }} </td>
+                                            <td class=""><a href="{{ route('admin.management.savings.edit', $saving->id) }}">ویرایش</a></td>
                                             @php $total += $saving->amount; @endphp
                                             <td class="comma_numbers">{{ $total }} </td>
                                         </tr>

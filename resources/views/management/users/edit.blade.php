@@ -11,7 +11,7 @@
                 <div class="title_left">
                     <h3>ویرایش پرسنل </h3>
                 </div>
-            
+
 
 
                 <div class="title_right">
@@ -79,7 +79,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">کد حسابداری <span class="required">*</span>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">شناسه حسابداری <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" id="last-name" name="accounting_code" required="required" value="{{ $user->accounting_code }}"

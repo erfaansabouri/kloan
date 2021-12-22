@@ -61,16 +61,18 @@
                                 <thead>
                                 <tr class="headings">
                                     <th class="column-title">ردیف</th>
-                                    <th class="column-title">نام</th>
-                                    <th class="column-title">نام خانوادگی</th>
                                     <th class="column-title">کد پرسنلی</th>
                                     <th class="column-title">کد حسابداری</th>
+                                    <th class="column-title">نام</th>
+                                    <th class="column-title">نام خانوادگی</th>
                                     <th class="column-title">محل خدمت</th>
                                     <th class="column-title">پس انداز</th>
                                     @foreach($loanTypes as $loanType)
                                         <th class="column-title">{{ $loanType->title }}</th>
                                     @endforeach
                                     <th class="column-title">جمع</th>
+                                    <th class="column-title">ماه</th>
+                                    <th class="column-title">سال</th>
 
                                 </tr>
                                 </thead>
@@ -80,21 +82,24 @@
                                 @foreach($users as $user)
                                     <tr class="even pointer">
                                         <td class=" ">{{ $user->id }}</td>
-                                        <td class=" ">{{ $user->first_name }}</td>
-                                        <td class=" ">{{ $user->last_name }}</td>
                                         <td class=" ">{{ $user->identification_code }}</td>
                                         <td class=" ">{{ $user->accounting_code }}</td>
+                                        <td class=" ">{{ $user->first_name }}</td>
+                                        <td class=" ">{{ $user->last_name }}</td>
+
                                         <td class=" ">{{ $user->site->title }}</td>
-                                        <td class="comma_numbers">{{ $user->total_saving }} ریال</td>
+                                        <td class="comma_numbers">{{ $user->total_saving }} </td>
                                         @php $sumOfSavingVertical += $user->total_saving; @endphp
                                         @php $hTotal += $user->total_saving @endphp
                                         @php $firstCounter = 0; @endphp
                                         @foreach($loanTypes as $loanType)
-                                            <td class=" comma_numbers">{{ @($user->total_installments)[$loanType->title] }} ریال</td>
+                                            <td class=" comma_numbers">{{ @($user->total_installments)[$loanType->title] }} </td>
                                             @php $hTotal += @($user->total_installments)[$loanType->title] @endphp
                                             @php $dynamicColsSum[$firstCounter++] += @($user->total_installments)[$loanType->title] @endphp
                                         @endforeach
-                                        <td class="comma_numbers">{{ $hTotal }} ریال</td>
+                                        <td class="comma_numbers">{{ $hTotal }} </td>
+                                        <td class="comma_numbers">{{ $month }}</td>
+                                        <td class="comma_numbers">{{ $year }}</td>
                                     </tr>
                                     @php $staticHTotal += $hTotal; $hTotal = 0; $firstCounter=0; @endphp
                                 @endforeach
@@ -105,12 +110,12 @@
                                     <td class=" ">-</td>
                                     <td class=" ">-</td>
                                     <td class=" ">-</td>
-                                    <td class="comma_numbers">{{ $sumOfSavingVertical }} ریال</td>
+                                    <td class="comma_numbers">{{ $sumOfSavingVertical }} </td>
                                     @php $counter = 0; @endphp
                                     @foreach($loanTypes as $loanType)
-                                        <th class=" comma_numbers column-title">{{ $dynamicColsSum[$counter++] }} ریال</th>
+                                        <th class=" comma_numbers column-title">{{ $dynamicColsSum[$counter++] }} </th>
                                     @endforeach
-                                    <td class="comma_numbers">{{ $staticHTotal }} ریال</td>
+                                    <td class="comma_numbers">{{ $staticHTotal }} </td>
                                 </tr>
                                 </tbody>
                             </table>

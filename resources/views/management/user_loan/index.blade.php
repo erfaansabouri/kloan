@@ -98,9 +98,9 @@
                                             <td class=" ">{{ $userLoan->user->identification_code }}</td>
                                             <td class=" ">{{ $userLoan->user->accounting_code ?? "تعریف نشده"}}</td>
                                             <td class=" ">{{ $userLoan->loan->title }}({{ $userLoan->loan->code }})</td>
-                                            <td class=""> <span class="comma_numbers">{{ $userLoan->total_amount }}</span> ریال</td>
+                                            <td class=""> <span class="comma_numbers">{{ $userLoan->total_amount }}</span> </td>
                                             <td class="">{{ $userLoan->installment_count }}</td>
-                                            <td class=""><span class="comma_numbers">{{ $userLoan->installment_amount }}</span> ریال</td>
+                                            <td class=""><span class="comma_numbers">{{ $userLoan->installment_amount }}</span> </td>
                                             <td class=" ">{{(new \App\Models\TimeHelper)->georgian2jalali($userLoan->first_installment_received_at) }}</td>
                                             <td class=" ">{{(new \App\Models\TimeHelper)->georgian2jalali($userLoan->loan_paid_to_user_at) }}</td>
                                             <td class=" "><a href="{{ route('admin.management.user_loan.show', $userLoan->id) }}">نمایش</a></td>

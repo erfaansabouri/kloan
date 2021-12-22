@@ -87,6 +87,22 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">تاریخ پرداخت وام
+                                    </label>
+                                    <div class="col-md-2 col-sm-2 col-xs-12">
+                                        <input min="1" max="31" type="number" id="last-name" name="loan_paid_to_user_at_day"
+                                               class="form-control col-md-7 col-xs-12" placeholder="روز">
+                                    </div>
+                                    <div class="col-md-2 col-sm-2 col-xs-12">
+                                        <input min="1" max="12"  type="number" id="last-name" name="loan_paid_to_user_at_month"
+                                               class="form-control col-md-7 col-xs-12" placeholder="ماه">
+                                    </div>
+                                    <div class="col-md-2 col-sm-2 col-xs-12">
+                                        <input min="1380" max="1500"  type="number" id="last-name" name="loan_paid_to_user_at_year"
+                                               class="form-control col-md-7 col-xs-12" placeholder="سال">
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">تاریخ وصول اولین قسط
                                     </label>
                                     
@@ -100,22 +116,6 @@
                                     </div>
                                     <div class="col-md-2 col-sm-2 col-xs-12">
                                         <input min="1380" max="1500"  type="number" id="last-name" name="first_installment_received_at_year"
-                                               class="form-control col-md-7 col-xs-12" placeholder="سال">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">تاریخ پرداخت وام 
-                                    </label>
-                                    <div class="col-md-2 col-sm-2 col-xs-12">
-                                        <input min="1" max="31" type="number" id="last-name" name="loan_paid_to_user_at_day"
-                                               class="form-control col-md-7 col-xs-12" placeholder="روز">
-                                    </div>
-                                    <div class="col-md-2 col-sm-2 col-xs-12">
-                                        <input min="1" max="12"  type="number" id="last-name" name="loan_paid_to_user_at_month"
-                                               class="form-control col-md-7 col-xs-12" placeholder="ماه">
-                                    </div>
-                                    <div class="col-md-2 col-sm-2 col-xs-12">
-                                        <input min="1380" max="1500"  type="number" id="last-name" name="loan_paid_to_user_at_year"
                                                class="form-control col-md-7 col-xs-12" placeholder="سال">
                                     </div>
                                 </div>

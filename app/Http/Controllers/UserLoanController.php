@@ -90,6 +90,7 @@ class UserLoanController extends Controller
         }
 
         $userLoans = UserLoan::query()
+            ->orderByDesc('id')
             ->visible()
             ->with(['user', 'loan'])
             ->paginate(20);

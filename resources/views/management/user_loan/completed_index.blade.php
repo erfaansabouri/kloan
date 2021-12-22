@@ -60,10 +60,10 @@
                                             <td class=" ">{{ $userLoan->user->last_name }}</td>
                                             <td class=" ">{{ $userLoan->user->identification_code }}</td>
                                             <td class=" ">{{ $userLoan->loan->title }}({{ $userLoan->loan->code }})</td>
-                                            <td class=""><span class="comma_numbers">{{ $userLoan->total_amount }}</span> ریال</td>
-                                            <td class=""><span class="comma_numbers">{{ $userLoan->total_received_installment_amount }}</span> ریال</td>
+                                            <td class=""><span class="comma_numbers">{{ $userLoan->total_amount }}</span> </td>
+                                            <td class=""><span class="comma_numbers">{{ $userLoan->total_received_installment_amount }}</span> </td>
                                             <td class=""> <span class="comma_numbers">{{ $userLoan->installments->count() }}</span></td>
-                                            <td class=""><span class="comma_numbers">{{ $userLoan->total_remained_installment_amount }}</span> ریال</td>
+                                            <td class=""><span class="comma_numbers">{{ $userLoan->total_remained_installment_amount }}</span> </td>
                                             <td class="">@if($userLoan->total_remained_installment_amount == 0) پرداخت کامل @endif @if($userLoan->total_remained_installment_amount > 0) پرداخت ناقص @endif</td>
                                             <td class=" ">
                                                 <form action="{{ route('admin.management.user_loan.archive', $userLoan->id) }}" method="post">

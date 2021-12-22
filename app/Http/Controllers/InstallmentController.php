@@ -37,7 +37,10 @@ class InstallmentController extends Controller
         $loanTypes = LoanType::query()
             ->parent()
             ->get();
-        return view('management.installments.kosoorat', compact('users', 'loanTypes'));
+
+        $month = $request->month;
+        $year = $request->year;
+        return view('management.installments.kosoorat', compact('users', 'loanTypes', 'month', 'year'));
     }
 
     public function receiveInstallmentsOfAllUsersCreate(Request $request)
@@ -66,7 +69,7 @@ class InstallmentController extends Controller
             // check if has active loan
             $userLoans = UserLoan::query()
                 ->where('user_id', $activeUser->id)
-                ->where('first_installment_received_at', '<=' , $date)
+                ->where('first_installment_received_at', '<=' , Carbon::now()->endOfMonth())
                 ->get();
             foreach ($userLoans as $userLoan)
             {

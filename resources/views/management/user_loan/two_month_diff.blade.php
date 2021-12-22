@@ -93,11 +93,11 @@
                                         <td class=" ">{{ $user->first_name }}</td>
                                         <td class=" ">{{ $user->last_name }}</td>
                                         <td class=" ">{{ $user->identification_code }}</td>
-                                        <td class="comma_numbers">{{ $user->total_first_date }} ریال</td>
+                                        <td class="comma_numbers">{{ $user->total_first_date }} </td>
                                         @php $totalFirstDate += $user->total_first_date @endphp
-                                        <td class="comma_numbers">{{ $user->total_second_date }} ریال</td>
+                                        <td class="comma_numbers">{{ $user->total_second_date }} </td>
                                         @php $totalSecondDate += $user->total_second_date @endphp
-                                        <td class="comma_numbers @if($user->total_first_date - $user->total_second_date < 0) red @endif @if($user->total_first_date - $user->total_second_date >= 0) green @endif">{{ $user->total_first_date - $user->total_second_date }} ریال</td>
+                                        <td class="comma_numbers @if($user->total_first_date - $user->total_second_date < 0) red @endif @if($user->total_first_date - $user->total_second_date >= 0) green @endif">{{ $user->total_first_date - $user->total_second_date }} </td>
                                         @php $total+= $user->total_first_date - $user->total_second_date @endphp
                                     </tr>
                                 @endforeach
@@ -106,9 +106,9 @@
                                     <td class=" ">-</td>
                                     <td class=" ">-</td>
                                     <td class=" ">-</td>
-                                    <td class="comma_numbers">{{ $totalFirstDate }} ریال</td>
-                                    <td class="comma_numbers">{{ $totalSecondDate }} ریال</td>
-                                    <td class="comma_numbers">{{ $total }} ریال</td>
+                                    <td class="comma_numbers">{{ $totalFirstDate }} </td>
+                                    <td class="comma_numbers">{{ $totalSecondDate }} </td>
+                                    <td class="comma_numbers">{{ $total }} </td>
                                 </tr>
                                 </tbody>
                             </table>

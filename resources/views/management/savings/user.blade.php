@@ -70,9 +70,9 @@
                                             <td class=" ">{{ @$saving->user->site->title }}</td>
                                             <td class=" ">{{ @$saving->month }}</td>
                                             <td class=" ">{{ @$saving->year }}</td>
-                                            <td class="comma_numbers">{{ @$saving->amount }} ریال</td>
+                                            <td class="comma_numbers">{{ @$saving->amount }} </td>
                                             @php $total += $saving->amount; @endphp
-                                            <td class="comma_numbers">{{ $total }} ریال</td>
+                                            <td class="comma_numbers">{{ $total }} </td>
                                         </tr>
                                     @endforeach
                                     </tbody>

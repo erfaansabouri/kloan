@@ -50,7 +50,7 @@ class ConvertOldSavingsCommand extends Command
         {
             Saving::query()
                 ->create([
-                    'month' => '5',
+                    'month' => '4',
                     'year' => '1400',
                     'amount' => $oldSaving->saving,
                     'user_id' => $this->getUserIdWithIdentificationCode($oldSaving->identification_code),

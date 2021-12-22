@@ -65,7 +65,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">مبلغ به ریال
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">مبلغ به
                                     </label>
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <input type="text" id="last-name" name="amount" value="{{ $amount }}" placeholder="مبلغ"

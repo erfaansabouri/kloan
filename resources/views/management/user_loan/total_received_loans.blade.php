@@ -69,7 +69,7 @@
                                             <td class=" ">{{ $user->last_name }}</td>
                                             <td class=" ">{{ $user->identification_code }}</td>
                                             @foreach($loanTypes as $loanType)
-                                                <td class="comma_numbers">{{ ($user->total_received_loans)[$loanType->title] }} ریال</td>
+                                                <td class="comma_numbers">{{ ($user->total_received_loans)[$loanType->title] }} </td>
                                             @endforeach
                                         </tr>
                                     @endforeach

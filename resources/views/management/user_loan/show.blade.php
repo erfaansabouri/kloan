@@ -52,13 +52,13 @@
                                         <b>شماره ردیف:</b> {{ $userLoan->id }}
                                         <br>
                                         <br>
-                                        <b>مبلغ کل وام:</b> <span class="comma_numbers">{{ $userLoan->total_amount }}</span> ریال
+                                        <b>مبلغ کل وام:</b> <span class="comma_numbers">{{ $userLoan->total_amount }}</span>
                                         <br>
                                         <br>
                                         <b>تعداد اقساط:</b> {{ $userLoan->installment_count }}
                                         <br>
                                         <br>
-                                        <b>مبلغ هر قسط:</b> <span class="comma_numbers"></span> ریال
+                                        <b>مبلغ هر قسط:</b> <span class="comma_numbers">{{ $userLoan->installment_amount }}</span>
                                         <br>
                                         <br>
                                         <b>تاریخ اولین قسط:</b> {{(new \App\Models\TimeHelper)->georgian2jalali($userLoan->first_installment_received_at) }}
@@ -67,10 +67,10 @@
                                         <b>تاریخ پرداخت وام:</b> {{(new \App\Models\TimeHelper)->georgian2jalali($userLoan->loan_paid_to_user_at) }}
                                         <br>
                                         <br>
-                                        <b>کل مبلغ پرداختی تا کنون:</b> <span class="comma_numbers">{{  $userLoan->total_received_installment_amount }}</span> ریال
+                                        <b>کل مبلغ پرداختی تا کنون:</b> <span class="comma_numbers">{{  $userLoan->total_received_installment_amount }}</span>
                                         <br>
                                         <br>
-                                        <b>کل مبلغ باقی مانده:</b> <span class="comma_numbers">{{  $userLoan->total_remained_installment_amount }}</span> ریال
+                                        <b>کل مبلغ باقی مانده:</b> <span class="comma_numbers">{{  $userLoan->total_remained_installment_amount }}</span>
                                     </div>
                                     <div class="col-xs-12 col-sm-4 invoice-col">
                                         <b>نام:</b> {{ $userLoan->user->first_name }}
@@ -120,7 +120,7 @@
                                             @foreach($installments as $installment)
                                             <tr class="even pointer">
                                                 <td class=" ">{{ $installment->id }}</td>
-                                                <td class=" "><span class="comma_numbers">{{ $installment->received_amount }}</span> ریال</td>
+                                                <td class=" "><span class="comma_numbers">{{ $installment->received_amount }}</span> </td>
                                                 <td class=" ">{{ $installment->month }}</td>
                                                 <td class=" ">{{ $installment->year }}</td>
                                                 <td class=" ">

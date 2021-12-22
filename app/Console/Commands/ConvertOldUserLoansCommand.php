@@ -53,22 +53,22 @@ class ConvertOldUserLoansCommand extends Command
         // Bime
         $parentBime = LoanType::query()
             ->create([
-                'title' => 'بیمه',
-                'code' => "1000"
+                'title' => 'بیمه خودرو',
+                'code' => "3000"
             ]);
 
         $childBime1 = LoanType::query()
             ->create([
                 'parent_id' => $parentBime->id,
-                'title' => 'بیمه یک',
-                'code' => "1001",
+                'title' => 'بیمه خودرو یک',
+                'code' => "3001",
             ]);
 
         $childBime2 = LoanType::query()
             ->create([
                 'parent_id' => $parentBime->id,
-                'title' => 'بیمه دو',
-                'code' => "1002",
+                'title' => 'بیمه خودرو دو',
+                'code' => "3002",
             ]);
 
         foreach ($oldBimeLoans as $oldBimeLoan)
@@ -83,8 +83,8 @@ class ConvertOldUserLoansCommand extends Command
                         'total_amount' => $oldBimeLoan->total_remained_amount,
                         'installment_count' => $oldBimeLoan->installment_count,
                         'installment_amount' => $oldBimeLoan->installment_amount,
-                        'first_installment_received_at' => Carbon::now()->subMonths(5),
-                        'loan_paid_to_user_at' => Carbon::now()->subMonths(6),
+                        'first_installment_received_at' => Carbon::parse('2021-08-22'),
+                        'loan_paid_to_user_at' => Carbon::parse('2021-07-22'),
                         'archive_at' => null,
                     ]);
 
@@ -98,8 +98,8 @@ class ConvertOldUserLoansCommand extends Command
                     'total_amount' => $oldBimeLoan->total_remained_amount,
                     'installment_count' => $oldBimeLoan->installment_count,
                     'installment_amount' => $oldBimeLoan->installment_amount,
-                    'first_installment_received_at' => Carbon::now()->subMonths(5),
-                    'loan_paid_to_user_at' => Carbon::now()->subMonths(6),
+                    'first_installment_received_at' => Carbon::parse('2021-08-22'),
+                    'loan_paid_to_user_at' => Carbon::parse('2021-07-22'),
                     'archive_at' => null,
                 ]);
 
@@ -144,8 +144,8 @@ class ConvertOldUserLoansCommand extends Command
                         'total_amount' => $oldGharzolLoan->total_remained_amount,
                         'installment_count' => $oldGharzolLoan->installment_count,
                         'installment_amount' => $oldGharzolLoan->installment_amount,
-                        'first_installment_received_at' => Carbon::now()->subMonths(5),
-                        'loan_paid_to_user_at' => Carbon::now()->subMonths(6),
+                        'first_installment_received_at' => Carbon::parse('2021-08-22'),
+                        'loan_paid_to_user_at' => Carbon::parse('2021-07-22'),
                         'archive_at' => null,
                     ]);
 
@@ -159,8 +159,8 @@ class ConvertOldUserLoansCommand extends Command
                     'total_amount' => $oldGharzolLoan->total_remained_amount,
                     'installment_count' => $oldGharzolLoan->installment_count,
                     'installment_amount' => $oldGharzolLoan->installment_amount,
-                    'first_installment_received_at' => Carbon::now()->subMonths(5),
-                    'loan_paid_to_user_at' => Carbon::now()->subMonths(6),
+                    'first_installment_received_at' => Carbon::parse('2021-08-22'),
+                    'loan_paid_to_user_at' => Carbon::parse('2021-07-22'),
                     'archive_at' => null,
                 ]);
 
@@ -176,21 +176,28 @@ class ConvertOldUserLoansCommand extends Command
         $parentLavazem = LoanType::query()
             ->create([
                 'title' => 'لوازم خانگی',
-                'code' => "3000"
+                'code' => "1000"
             ]);
 
         $childLavazem1 = LoanType::query()
             ->create([
                 'parent_id' => $parentLavazem->id,
                 'title' => 'لوازم خانگی یک',
-                'code' => "3001",
+                'code' => "1001",
             ]);
 
         $childLavazem2 = LoanType::query()
             ->create([
                 'parent_id' => $parentLavazem->id,
                 'title' => 'لوازم خانگی دو',
-                'code' => "3002",
+                'code' => "1002",
+            ]);
+
+        $childLavazem3 = LoanType::query()
+            ->create([
+                'parent_id' => $parentLavazem->id,
+                'title' => 'لوازم خانگی سه',
+                'code' => "1003",
             ]);
 
         foreach ($oldLavazemLoans as $oldLavazemLoan)
@@ -205,8 +212,8 @@ class ConvertOldUserLoansCommand extends Command
                         'total_amount' => $oldLavazemLoan->total_remained_amount,
                         'installment_count' => $oldLavazemLoan->installment_count,
                         'installment_amount' => $oldLavazemLoan->installment_amount,
-                        'first_installment_received_at' => Carbon::now()->subMonths(5),
-                        'loan_paid_to_user_at' => Carbon::now()->subMonths(6),
+                        'first_installment_received_at' => Carbon::parse('2021-08-22'),
+                        'loan_paid_to_user_at' => Carbon::parse('2021-07-22'),
                         'archive_at' => null,
                     ]);
 
@@ -220,8 +227,8 @@ class ConvertOldUserLoansCommand extends Command
                     'total_amount' => $oldLavazemLoan->total_remained_amount,
                     'installment_count' => $oldLavazemLoan->installment_count,
                     'installment_amount' => $oldLavazemLoan->installment_amount,
-                    'first_installment_received_at' => Carbon::now()->subMonths(5),
-                    'loan_paid_to_user_at' => Carbon::now()->subMonths(6),
+                    'first_installment_received_at' => Carbon::parse('2021-08-22'),
+                    'loan_paid_to_user_at' => Carbon::parse('2021-07-22'),
                     'archive_at' => null,
                 ]);
 

@@ -19,7 +19,7 @@ Route::get('/user-loan-types-export', [\App\Http\Controllers\Controller::class, 
 Route::get('/user-savings-export', [\App\Http\Controllers\Controller::class, 'userSavingsExport'])->name('export.user_savings');
 Route::get('/user-kosoorat-export', [\App\Http\Controllers\Controller::class, 'userKosooratExport'])->name('export.user_kosoorat');
 Route::get('/two-month-export', [\App\Http\Controllers\Controller::class, 'twoMonthDiffExport'])->name('export.two_month');
-
+Route::post('/import-user-loans', [\App\Http\Controllers\Controller::class, 'importUserLoans'])->name('import.user_loans');
 
 Route::get('/', [\App\Http\Controllers\WelcomeController::class, 'index'])->name('home')->middleware(['auth']);
 Route::get('/login', [\App\Http\Controllers\LoginController::class, 'show'])->name('login');

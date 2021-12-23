@@ -8,6 +8,7 @@ use App\Exports\twoMonthDiffExport;
 use App\Exports\UserKosooratExport;
 use App\Exports\UserLoanTypesExport;
 use App\Exports\UserSavingsExport;
+use App\Imports\UserLoansImport;
 use App\Models\User;
 use App\Models\UserLoan;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -63,5 +64,21 @@ class Controller extends BaseController
         ]);
 
         return Excel::download(new twoMonthDiffExport($request->first_month, $request->first_year, $request->second_month, $request->second_year), 'month_diff.xlsx');
+    }
+
+    public function importUserLoans(Request $request)
+    {
+        $request->validate([
+            'file' => 'required'
+        ]);
+
+        if($request->file()) {
+            $fileName = time().'_'.$request->file->getClientOriginalName();
+            $filePath = $request->file('file')->storeAs('uploads', $fileName, 'public');
+            Excel::import(new UserLoansImport(), request()->file('file'));
+            return back()
+                ->with('success','File has been uploaded.')
+                ->with('file', $fileName);
+        }
     }
 }

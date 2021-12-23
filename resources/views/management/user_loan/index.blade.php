@@ -45,19 +45,18 @@
                     </div>
                 </form>
 
-                <form action="{{ route('export.all_user_loans') }}" method="get">
+                <form action="{{ route('import.user_loans') }}" method="post" enctype="multipart/form-data">
                     @csrf
-                    @method('get')
-                    <div class="">
-                        <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-                            <div class="input-group">
-                                <input disabled="disabled" type="text" class="form-control" placeholder="این قسمت را خالی بگذارید" name="identification_code">
-                                <span class="input-group-btn">
-                      <button class="btn btn-default" type="submit">دریافت خروجی اکسل از مانده وام های تمام پرسنل!</button>
-                    </span>
-                            </div>
-                        </div>
+                    @method('post')
+                    <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                        <input type="file" name="file" class="custom-file-input" id="chooseFile">
+                        <label class="custom-file-label" for="chooseFile">Select file</label>
+
                     </div>
+
+                    <button type="submit" name="submit" class="btn btn-primary col-md-4 col-sm-4 col-xs-4 form-group">
+                        ورود وام ها از طریق فایل اکسل
+                    </button>
                 </form>
 
             </div>

@@ -53,6 +53,33 @@
                                 <button class="btn btn-success  col-md-12 col-xs-12">پردازش</button>
                             </div>
                         </form>
+                        <hr>
+                        <form action="{{ route('export.user_kosoorat') }}" method="get">
+                            @csrf
+                            @method('get')
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">تاریخ
+                                </label>
+                                <div class="col-md-3 col-sm-3 col-xs-12">
+                                    <input type="text" id="first-name" required="required" name="month" placeholder="ماه "
+                                           class="form-control col-md-7 col-xs-12">
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-12">
+                                    <input type="text" id="first-name" required="required" name="year" placeholder="سال "
+                                           class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+
+                            <div class="clearfix"></div>
+                            <div class="clearfix"></div>
+                            <div class="clearfix"></div>
+                            <br>
+                            <div class="clearfix"></div>
+                            <br>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <button class="btn btn-success  col-md-12 col-xs-12">دریافت خروجی اکسل</button>
+                            </div>
+                        </form>
 
                     </div>
                     <div class="x_content">
@@ -78,7 +105,7 @@
                                 </thead>
 
                                 <tbody>
-                                @php $hTotal = 0; $staticHTotal = 0; $sumOfSavingVertical = 0; $dynamicColsSum = [0,0,0,0,0,0,0,0,0,0,0,0,0,0] @endphp
+                                @php $hTotal = 0; $staticHTotal = 0; $sumOfSavingVertical = 0; $dynamicColsSum = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] @endphp
                                 @foreach($users as $user)
                                     <tr class="even pointer">
                                         <td class=" ">{{ $user->id }}</td>

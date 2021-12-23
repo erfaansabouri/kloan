@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/user-loans-export', [\App\Http\Controllers\Controller::class, 'userLoanExport'])->name('export.user_loan');
 Route::get('/all-user-loans-export', [\App\Http\Controllers\Controller::class, 'allUserLoansExport'])->name('export.all_user_loans');
 Route::get('/user-loan-types-export', [\App\Http\Controllers\Controller::class, 'userLoanTypesExport'])->name('export.user_loan_types');
+Route::get('/user-savings-export', [\App\Http\Controllers\Controller::class, 'userSavingsExport'])->name('export.user_savings');
+Route::get('/user-kosoorat-export', [\App\Http\Controllers\Controller::class, 'userKosooratExport'])->name('export.user_kosoorat');
+Route::get('/two-month-export', [\App\Http\Controllers\Controller::class, 'twoMonthDiffExport'])->name('export.two_month');
 
 
 Route::get('/', [\App\Http\Controllers\WelcomeController::class, 'index'])->name('home')->middleware(['auth']);

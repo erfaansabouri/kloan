@@ -10,15 +10,35 @@
                 <div class="title_left">
                     <h3>موجودی حساب پس انداز یک عضو</h3>
                 </div>
+                <br>
+
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="row">
                 <form action="{{ route('admin.management.savings.user') }}" method="get">
                     @csrf
                     @method('get')
                     <div class="title_right">
-                        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group">
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="جستوجو بر اساس کد پرسنلی" name="search">
                                 <span class="input-group-btn">
                       <button class="btn btn-default" type="submit">برو!</button>
+                    </span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <form action="{{ route('export.user_savings') }}" method="get">
+                    @csrf
+                    @method('get')
+                    <div class="title_right">
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group ">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="جستوجو بر اساس کد پرسنلی" name="identification_code">
+                                <span class="input-group-btn">
+                      <button class="btn btn-default" type="submit">دریافت خروجی اکسل از موجودی حساب پس انداز یک عضو!</button>
                     </span>
                             </div>
                         </div>

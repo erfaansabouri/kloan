@@ -17,7 +17,7 @@
         <!-- /page content -->
         <!-- footer content -->
         <footer class="hidden-print">
-          
+
             <div class="clearfix"></div>
         </footer>
         <!-- /footer content -->

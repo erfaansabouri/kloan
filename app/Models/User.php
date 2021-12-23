@@ -141,6 +141,19 @@ class User extends Authenticatable
             ->sum('received_amount');
     }
 
+    public function getTotalInstallmentOfDateWithParentLoanType($month, $year, $parentLoanTypeId)
+    {
+        $childIds = LoanType::query()->where('parent_id', $parentLoanTypeId)->get()->pluck('id');
+        return Installment::query()
+            ->select('installments.*', 'user_loan.user_loan_id', 'user_loan.loan_type_id')
+            ->leftJoin('user_loan', 'user_loan.id', '=', 'installments.user_loan_id')
+            ->whereIn('user_loan.loan_type_id', $childIds)
+            ->where('installments.user_id', $this->id)
+            ->where('installments.month', $month)
+            ->where('installments.year', $year)
+            ->sum('installments.received_amount');
+    }
+
     public function getTotalSavingsDate($month, $year)
     {
         return Saving::query()

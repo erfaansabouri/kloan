@@ -27,7 +27,7 @@
                             </ul>
                             <div class="clearfix"></div>
                         </div>
-                        <form action="{{ route('admin.management.user_loan.two_month_diff') }}" method="get">
+                        <form action="{{ route('export.two_month') }}" method="get">
                             @csrf
                             @method('get')
                             <div class="form-group">

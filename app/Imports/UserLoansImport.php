@@ -5,6 +5,7 @@ namespace App\Imports;
 use App\Models\LoanType;
 use App\Models\User;
 use App\Models\UserLoan;
+use App\Models\UserLoanImportLog;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\ToModel;
@@ -39,8 +40,11 @@ class UserLoansImport implements ToCollection
     public function collection(Collection $rows)
     {
 
+        UserLoanImportLog::query()->truncate();
         foreach ($rows as $row)
         {
+            if($row[0] == 'کد وام')
+                continue;
             $loanTypeCode = $row[0];
             $userIdentificationCode = $row[1];
             $userLoanTotalAmount = $row[2];
@@ -66,6 +70,11 @@ class UserLoansImport implements ToCollection
                 $userLoanInstallmentCount == 0
             )
             {
+                UserLoanImportLog::query()
+                    ->create([
+                        'log' => "ردیف با اطلاعات شماره پرسنلی $userIdentificationCode و کد وام $loanTypeCode با مشکل مواجه شد ",
+                        'status' => "نا موفق",
+                    ]);
                 continue;
             }
 
@@ -82,6 +91,25 @@ class UserLoansImport implements ToCollection
 
             if ($user && $loanType)
             {
+                //check if user has an active loan of this type
+                $hasLoanOfThisType = UserLoan::query()
+                    ->where('user_id', $user->id)
+                    ->where('loan_type_id', $loanType->id)
+                    ->first();
+
+                if($hasLoanOfThisType)
+                {
+                    if(!$hasLoanOfThisType->isReceivedCompletely())
+                    {
+                        UserLoanImportLog::query()
+                            ->create([
+                                'log' => "ردیف با اطلاعات شماره پرسنلی $userIdentificationCode و کد وام $loanTypeCode قبلا وام فعال دارد ",
+                                'status' => "نا موفق"
+                            ]);
+                        continue;
+                    }
+                }
+
                 UserLoan::query()->create([
                     'user_id'     => $user->id,
                     'loan_type_id'    => $loanType->id,
@@ -92,6 +120,20 @@ class UserLoansImport implements ToCollection
                     'loan_paid_to_user_at' => $carbonUserLoanPaidDate,
                     'archive_at' => null,
                 ]);
+
+                UserLoanImportLog::query()
+                    ->create([
+                        'log' => "ردیف با اطلاعات شماره پرسنلی $userIdentificationCode و کد وام $loanTypeCode با موفقیت وارد شد. ",
+                        'status' => "موفق"
+                    ]);
+            }
+
+            else{
+                UserLoanImportLog::query()
+                    ->create([
+                        'log' => "ردیف با اطلاعات شماره پرسنلی $userIdentificationCode و کد وام $loanTypeCode با مشکل مواجه شد (کد پرسنلی یا وام وجود نداشت) ",
+                        'status' => "نا موفق",
+                    ]);
             }
 
         }

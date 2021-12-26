@@ -11,6 +11,7 @@
     </tr>
     </thead>
     <tbody>
+    @php $firstSum = 0; $secondSum = 0; @endphp
     @foreach($users as $user)
     <tr>
         <td class=" ">{{ $user->id }}</td>
@@ -20,6 +21,17 @@
         <td class=" ">{{ $user->accounting_code }}</td>
         <td class=" ">{{ $user->total_first_date }} </td>
         <td class=" ">{{ $user->total_second_date }} </td>
+
+        @php $firstSum += $user->total_first_date; $secondSum += $user->total_second_date @endphp
     </tr>
     @endforeach
+    <tr>
+        <td class=" ">-</td>
+        <td class=" ">-</td>
+        <td class=" ">-</td>
+        <td class=" ">-</td>
+        <td class=" ">-</td>
+        <td class=" ">{{ $firstSum }}</td>
+        <td class=" ">{{ $secondSum }}</td>
+    </tr>
 </table>

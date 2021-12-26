@@ -123,7 +123,7 @@ class User extends Authenticatable
                     ->where('month', $month)
                     ->where('year', $year)
                     ->sum('received_amount');
-                $result[$loanType->title] = $currentMonthInstallments;
+                $result[$loanType->title] += $currentMonthInstallments;
             }
 
         }

@@ -7,6 +7,7 @@ use App\Models\Installment;
 use App\Models\LoanType;
 use App\Models\User;
 use App\Models\UserLoan;
+use App\Models\UserLoanImportLog;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -258,7 +259,21 @@ class UserLoanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $userLoan = UserLoan::query()
+            ->where('id', $id)
+            ->firstOrFail();
+
+        $loanName = $userLoan->loan->title;
+        $userName = $userLoan->user->first_name . " " . $userLoan->user->last_name;
+
+        $installments = Installment::query()
+            ->where('user_loan_id', $id)
+            ->delete();
+
+        $userLoan->delete();
+
+        return redirect()->back()->with('result', "وام پرسنل $userName با عنوان $loanName با موفقیت حذف شد!");
+
     }
 
     public function archive($id)
@@ -271,5 +286,13 @@ class UserLoanController extends Controller
         $userLoan->save();
         return redirect()->back()->with('result', 'با موفقیت بایگانی شد!');
 
+    }
+
+    public function importStatus()
+    {
+        $logs = UserLoanImportLog::query()
+            ->get();
+
+        return view('management.user_loan.import_status', compact('logs'));
     }
 }

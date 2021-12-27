@@ -76,6 +76,8 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
             Route::get('/edit/{id}', [\App\Http\Controllers\UserLoanController::class, 'edit'])->name('admin.management.user_loan.edit');
             Route::put('/update/{id}', [\App\Http\Controllers\UserLoanController::class, 'update'])->name('admin.management.user_loan.update');
             Route::put('/archive/{id}', [\App\Http\Controllers\UserLoanController::class, 'archive'])->name('admin.management.user_loan.archive');
+            Route::get('/destroy/{id}', [\App\Http\Controllers\UserLoanController::class, 'destroy'])->name('admin.management.user_loan.destroy');
+            Route::get('/import-status', [\App\Http\Controllers\UserLoanController::class, 'importStatus'])->name('admin.management.user_loan.import_status');
         });
         Route::prefix('installments')->group(function () {
             Route::get('kosroorat', [\App\Http\Controllers\InstallmentController::class, 'kosoorat'])->name('admin.management.installments.kosoorat');

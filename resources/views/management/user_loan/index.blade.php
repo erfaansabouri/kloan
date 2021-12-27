@@ -59,11 +59,27 @@
                     </button>
                 </form>
 
+                <a href="{{ route('admin.management.user_loan.import_status') }}">
+                    <button type="submit" name="submit" class="btn btn-primary col-md-4 col-sm-4 col-xs-4 form-group">
+                        بررسی وضعیت آخرین وام های وارد شده از طریق اکسل
+                    </button>
+                </a>
+
+
+
+
             </div>
 
 
 
             <div class="clearfix"></div>
+            @if (session('result'))
+                <div class="alert alert-success col-md-4 col-sm-4 col-xs-4">
+                        <span>
+                            {{ session('result') }}
+                        </span>
+                </div>
+            @endif
 
             <div class="row">
 
@@ -102,6 +118,7 @@
                                         <th class="column-title">تاریخ وصول اولین قسط</th>
                                         <th class="column-title">نمایش</th>
                                         <th class="column-title">ویرایش</th>
+                                        <th class="column-title">حذف</th>
 
                                     </tr>
                                     </thead>
@@ -124,6 +141,7 @@
                                             <td class=" ">{{(new \App\Models\TimeHelper)->georgian2jalali($userLoan->first_installment_received_at) }}</td>
                                             <td class=" "><a href="{{ route('admin.management.user_loan.show', $userLoan->id) }}">نمایش</a></td>
                                             <td class=" "><a href="{{ route('admin.management.user_loan.edit', $userLoan->id) }}">ویرایش</a></td>
+                                            <td class=" "><a href="{{ route('admin.management.user_loan.destroy', $userLoan->id) }}">حذف</a></td>
                                         </tr>
                                     @endforeach
                                     </tbody>

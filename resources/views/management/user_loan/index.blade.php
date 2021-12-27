@@ -30,6 +30,8 @@
                     </div>
                 </form>
 
+
+
                 <form action="{{ route('export.user_loan') }}" method="get">
                     @csrf
                     @method('get')
@@ -45,12 +47,14 @@
                     </div>
                 </form>
 
+                <hr>
+
                 <form action="{{ route('import.user_loans') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('post')
                     <div class="col-md-12 col-sm-12 col-xs-12 form-group">
                         <input type="file" name="file" class="custom-file-input" id="chooseFile">
-                        <label class="custom-file-label" for="chooseFile">Select file</label>
+                        <label class="custom-file-label" for="chooseFile">انتخاب فایل اکسل</label>
 
                     </div>
 
@@ -70,6 +74,7 @@
 
             </div>
 
+            <hr>
 
 
             <div class="clearfix"></div>

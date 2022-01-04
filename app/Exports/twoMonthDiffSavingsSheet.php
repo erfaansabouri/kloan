@@ -9,21 +9,19 @@ use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\WithTitle;
 
-class twoMonthDiffPerLoanTypeSheet implements FromView, WithTitle
+class twoMonthDiffSavingsSheet implements FromView, WithTitle
 {
     private $firstMonth;
     private $firstYear;
     private $secondMonth;
     private $secondYear;
-    private $parentLoanType;
 
-    public function __construct($firstMonth,$firstYear,$secondMonth,$secondYear,$parentLoanType)
+    public function __construct($firstMonth,$firstYear,$secondMonth,$secondYear)
     {
         $this->firstMonth = $firstMonth;
         $this->firstYear = $firstYear;
         $this->secondMonth = $secondMonth;
         $this->secondYear = $secondYear;
-        $this->parentLoanType = $parentLoanType;
     }
 
 
@@ -36,14 +34,14 @@ class twoMonthDiffPerLoanTypeSheet implements FromView, WithTitle
         $secondYear = $this->secondYear;
 
         $users = User::query()
-            ->whereHas('installments', function ($q) use ($firstMonth,$firstYear,$secondMonth,$secondYear){
+            ->whereHas('savings', function ($q) use ($firstMonth,$firstYear,$secondMonth,$secondYear){
                 $q->whereIn('month', [$firstMonth, $secondMonth]);
                 $q->whereIn('year', [$firstYear, $secondYear]);
             })->get();
         foreach ($users as $user)
         {
-            $user['total_first_date'] = $user->getTotalInstallmentOfDateWithParentLoanType($this->firstMonth, $this->firstYear, $this->parentLoanType->id);
-            $user['total_second_date'] = $user->getTotalInstallmentOfDateWithParentLoanType($this->secondMonth, $this->secondYear, $this->parentLoanType->id);
+            $user['total_first_date'] = $user->getTotalSavingsOfDate($this->firstMonth, $this->firstYear);
+            $user['total_second_date'] = $user->getTotalSavingsOfDate($this->secondMonth, $this->secondYear);
         }
 
         $result = [];
@@ -52,7 +50,7 @@ class twoMonthDiffPerLoanTypeSheet implements FromView, WithTitle
             if($user['total_first_date'] != $user['total_second_date'])
                 $result[] = $user;
         }
-        return view('exports.two_month_sheet', [
+        return view('exports.two_month_savings_sheet', [
             'users' => $result,
             'firstMonth' => $firstMonth,
             'firstYear' => $firstYear,
@@ -66,6 +64,6 @@ class twoMonthDiffPerLoanTypeSheet implements FromView, WithTitle
      */
     public function title(): string
     {
-        return $this->parentLoanType->title;
+        return 'پس انداز';
     }
 }

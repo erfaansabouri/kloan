@@ -53,7 +53,7 @@
                                             <td class=" ">{{ $loanType->code ?? "فاقد کد" }}</td>
                                             <td class=" ">{{ $loanType->children_count }}</td>
                                             <td class=" ">
-                                                <a href="{{ route('admin.management.loan_types.edit', $loanType->id) }}">ویرایش</a> | حذف</td>
+                                                <a href="{{ route('admin.management.loan_types.edit', $loanType->id) }}">ویرایش</a></td>
                                             </td>
                                         </tr>
                                     @endforeach

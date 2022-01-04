@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/get-user-details', [\App\Http\Controllers\Controller::class, 'getUserDetails'])->name('get_user_details');
+
+
+
 Route::get('/user-loans-export', [\App\Http\Controllers\Controller::class, 'userLoanExport'])->name('export.user_loan');
 Route::get('/all-user-loans-export', [\App\Http\Controllers\Controller::class, 'allUserLoansExport'])->name('export.all_user_loans');
 Route::get('/user-loan-types-export', [\App\Http\Controllers\Controller::class, 'userLoanTypesExport'])->name('export.user_loan_types');
@@ -20,6 +24,7 @@ Route::get('/user-savings-export', [\App\Http\Controllers\Controller::class, 'us
 Route::get('/user-kosoorat-export', [\App\Http\Controllers\Controller::class, 'userKosooratExport'])->name('export.user_kosoorat');
 Route::get('/two-month-export', [\App\Http\Controllers\Controller::class, 'twoMonthDiffExport'])->name('export.two_month');
 Route::post('/import-user-loans', [\App\Http\Controllers\Controller::class, 'importUserLoans'])->name('import.user_loans');
+Route::post('/delete-user-loans', [\App\Http\Controllers\Controller::class, 'deleteUserLoans'])->name('delete.user_loans');
 
 Route::get('/', [\App\Http\Controllers\WelcomeController::class, 'index'])->name('home')->middleware(['auth']);
 Route::get('/login', [\App\Http\Controllers\LoginController::class, 'show'])->name('login');
@@ -35,6 +40,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
             Route::post('/store', [\App\Http\Controllers\UserController::class, 'store'])->name('admin.management.users.store');
             Route::get('/edit/{id}', [\App\Http\Controllers\UserController::class, 'edit'])->name('admin.management.users.edit');
             Route::put('/update/{id}', [\App\Http\Controllers\UserController::class, 'update'])->name('admin.management.users.update');
+            Route::get('/destroy/{id}', [\App\Http\Controllers\UserController::class, 'destroy'])->name('admin.management.users.destroy');
         });
         Route::prefix('sites')->group(function () {
             Route::get('/', [\App\Http\Controllers\SiteController::class, 'index'])->name('admin.management.sites.index');
@@ -78,6 +84,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
             Route::put('/archive/{id}', [\App\Http\Controllers\UserLoanController::class, 'archive'])->name('admin.management.user_loan.archive');
             Route::get('/destroy/{id}', [\App\Http\Controllers\UserLoanController::class, 'destroy'])->name('admin.management.user_loan.destroy');
             Route::get('/import-status', [\App\Http\Controllers\UserLoanController::class, 'importStatus'])->name('admin.management.user_loan.import_status');
+            Route::get('/delete-status', [\App\Http\Controllers\UserLoanController::class, 'deleteStatus'])->name('admin.management.user_loan.delete_status');
         });
         Route::prefix('installments')->group(function () {
             Route::get('kosroorat', [\App\Http\Controllers\InstallmentController::class, 'kosoorat'])->name('admin.management.installments.kosoorat');

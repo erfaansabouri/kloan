@@ -8,6 +8,7 @@ use App\Exports\twoMonthDiffExport;
 use App\Exports\UserKosooratExport;
 use App\Exports\UserLoanTypesExport;
 use App\Exports\UserSavingsExport;
+use App\Imports\UserLoanDeleteImport;
 use App\Imports\UserLoansImport;
 use App\Models\User;
 use App\Models\UserLoan;
@@ -80,5 +81,40 @@ class Controller extends BaseController
                 ->with('success','File has been uploaded.')
                 ->with('file', $fileName);
         }
+    }
+
+    public function deleteUserLoans(Request $request)
+    {
+        $request->validate([
+            'file' => 'required'
+        ]);
+
+        if($request->file()) {
+            Excel::import(new UserLoanDeleteImport(), request()->file('file'));
+            return back()
+                ->with('success','File has been uploaded.');
+        }
+    }
+
+    public function getUserDetails(Request $request)
+    {
+        $user = User::query()
+            ->where('identification_code', $request->identification_code)
+            ->first();
+
+        if(!$user)
+        {
+            return response()
+                ->json([
+                    'first_name' => 'کد پرسنلی به درستی وارد نشده است.',
+                    'last_name' => '',
+                ]);
+        }
+
+        return response()
+            ->json([
+                'first_name' => $user->first_name,
+                'last_name' => $user->last_name,
+            ]);
     }
 }

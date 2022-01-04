@@ -124,14 +124,38 @@
                                                 <td class=" "><span class="comma_numbers">{{ $installment->received_amount }}</span> </td>
                                                 <td class=" ">{{ $installment->month }}</td>
                                                 <td class=" ">{{ $installment->year }}</td>
-                                                <td class=" ">
-                                                    <form action="{{ route('admin.management.installments.destroy', $installment->id) }}" method="post">
-                                                        @csrf
-                                                        @method('delete')
-                                                        <button type="submit" class="btn btn-danger">
-                                                            حذف
-                                                        </button>
-                                                    </form>
+                                                <td>
+                                                    <button type="button" class="btn btn-danger" data-toggle="modal"
+                                                            data-target=".delete-modal-{{ $installment->id }}">حذف
+                                                    </button>
+
+                                                    <div class="modal fade delete-modal-{{ $installment->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+                                                        <div class="modal-dialog modal-sm">
+                                                            <div class="modal-content">
+
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                                                            aria-hidden="true">×</span>
+                                                                    </button>
+                                                                    <h4 class="modal-title" id="myModalLabel2">حذف قسط</h4>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <p>آیا اطمینان دارید؟ </p>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">بستن</button>
+                                                                    <form action="{{ route('admin.management.installments.destroy', $installment->id) }}" method="post">
+                                                                        @csrf
+                                                                        @method('delete')
+                                                                        <button type="submit" class="btn btn-danger">
+                                                                            حذف
+                                                                        </button>
+                                                                    </form>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </td>
                                                 <td>
                                                     <a href="{{ route('admin.management.installments.edit', $installment->id) }}"><button class="btn btn-primary">ویرایش مبلغ قسط</button></a>

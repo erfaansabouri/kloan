@@ -56,12 +56,37 @@
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">کد پرسنلی
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" id="first-name" required="required" name="identification_code"
-                                               class="form-control col-md-7 col-xs-12">
+                                        <input type="text" id="identification_code" required="required" name="identification_code"
+                                               class="form-control col-md-7 col-xs-12"  onkeyup="myFunction()">
+                                    </div>
+                                </div>
+
+                                <script>
+                                    function myFunction()
+                                    {
+                                        var identificationCode = document.getElementById("identification_code");
+                                        var userDetails = document.getElementById("user_details");
+                                        identificationCode.value = identificationCode.value.toUpperCase();
+                                        $.ajax({
+                                            type:'GET',
+                                            url:"{{ route('get_user_details') }}",
+                                            data:{identification_code:identificationCode.value},
+                                            success:function(data){
+                                                userDetails.value = data.first_name + ' ' + data.last_name;
+                                            }
+                                        });
+                                    }
+                                </script>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="user_details">نام و نام خانوادگی
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" id="user_details" class="form-control col-md-7 col-xs-12" disabled placeholder="با پر کردن کد پرسنلی این قسمت به صورت اتوماتیک نمایش داده خواهد شد.">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">انتخاب زیر کروه وام</label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">انتخاب زیر گروه وام</label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select class="form-control" name="loan_type_id">
                                             @foreach($loanTypes as $loanType)
@@ -105,7 +130,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">تاریخ وصول اولین قسط
                                     </label>
-                                    
+
                                     <div class="col-md-2 col-sm-2 col-xs-12">
                                         <input min="1" max="31" type="number" id="last-name" name="first_installment_received_at_day"
                                                class="form-control col-md-7 col-xs-12" placeholder="روز">

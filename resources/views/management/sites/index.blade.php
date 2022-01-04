@@ -21,7 +21,7 @@
                 <div class="title_right">
                     <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="جست و جو..." name="search">
+                            <input type="text" class="form-control" placeholder="جستجو..." name="search">
                             <span class="input-group-btn">
                       <button class="btn btn-default" type="submit">برو!</button>
                     </span>
@@ -70,7 +70,7 @@
                                             <td class=" ">{{ $site->code ?? "فاقد کد" }}</td>
                                             <td class=" ">{{ $site->users_count }}</td>
                                             <td class=" "><a href="{{ route('admin.management.sites.show', $site->id) }}">نمایش</a> |
-                                                <a href="{{ route('admin.management.sites.edit', $site->id) }}">ویرایش</a> | حذف</td>
+                                                <a href="{{ route('admin.management.sites.edit', $site->id) }}">ویرایش</a></td>
                                             </td>
                                         </tr>
                                     @endforeach

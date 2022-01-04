@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Installment;
+use App\Models\Saving;
 use App\Models\Site;
 use App\Models\User;
+use App\Models\UserLoan;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Morilog\Jalali\Jalalian;
@@ -140,6 +143,23 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::query()->findOrFail($id);
+
+        UserLoan::query()
+            ->where('user_id', $user->id)
+            ->delete();
+
+        Installment::query()
+            ->where('user_id', $user->id)
+            ->delete();
+
+        Saving::query()
+            ->where('user_id', $user->id)
+            ->delete();
+
+        $user->delete();
+
+        return redirect()->back()->with('result', 'پرسنل با موفقیت حذف شد!');
+
     }
 }

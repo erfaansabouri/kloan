@@ -154,6 +154,16 @@ class User extends Authenticatable
             ->sum('installments.received_amount');
     }
 
+
+    public function getTotalSavingsOfDate($month, $year)
+    {
+        return Saving::query()
+            ->where('user_id', $this->id)
+            ->where('month', $month)
+            ->where('year', $year)
+            ->sum('amount');
+    }
+
     public function getTotalSavingsDate($month, $year)
     {
         return Saving::query()

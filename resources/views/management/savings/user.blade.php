@@ -22,7 +22,7 @@
                     <div class="title_right">
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="جستوجو بر اساس کد پرسنلی" name="search">
+                                <input type="text" class="form-control" placeholder="جستجو بر اساس کد پرسنلی" name="search">
                                 <span class="input-group-btn">
                       <button class="btn btn-default" type="submit">برو!</button>
                     </span>
@@ -36,7 +36,7 @@
                     <div class="title_right">
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group ">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="جستوجو بر اساس کد پرسنلی" name="identification_code">
+                                <input type="text" class="form-control" placeholder="جستجو بر اساس کد پرسنلی" name="identification_code">
                                 <span class="input-group-btn">
                       <button class="btn btn-default" type="submit">دریافت خروجی اکسل از موجودی حساب پس انداز یک عضو!</button>
                     </span>

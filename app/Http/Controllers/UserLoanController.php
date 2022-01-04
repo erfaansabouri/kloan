@@ -7,6 +7,7 @@ use App\Models\Installment;
 use App\Models\LoanType;
 use App\Models\User;
 use App\Models\UserLoan;
+use App\Models\UserLoanDeleteLog;
 use App\Models\UserLoanImportLog;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -165,9 +166,25 @@ class UserLoanController extends Controller
             'loan_paid_to_user_at_year' => ['required', 'numeric'],
         ]);
 
+        $user = User::query()->where('identification_code', $request->identification_code)->firstOrFail();
+
+        //check if user has an active loan of this type
+        $hasLoanOfThisType = UserLoan::query()
+            ->where('user_id', $user->id)
+            ->where('loan_type_id', $request->loan_type_id)
+            ->first();
+
+        if($hasLoanOfThisType)
+        {
+            if(!$hasLoanOfThisType->isReceivedCompletely())
+            {
+                return redirect()->back()->with('result', 'کاربر قبلا وام فعال دارد و وام جدید ثبت نشد!');
+            }
+        }
+
         UserLoan::query()
             ->create([
-                'user_id' => User::query()->where('identification_code', $request->identification_code)->first()->id,
+                'user_id' => $user->id,
                 'loan_type_id' => $request->loan_type_id,
                 'total_amount' => $request->total_amount,
                 'installment_count' => $request->installment_count,
@@ -291,6 +308,14 @@ class UserLoanController extends Controller
     public function importStatus()
     {
         $logs = UserLoanImportLog::query()
+            ->get();
+
+        return view('management.user_loan.import_status', compact('logs'));
+    }
+
+    public function deleteStatus()
+    {
+        $logs = UserLoanDeleteLog::query()
             ->get();
 
         return view('management.user_loan.import_status', compact('logs'));

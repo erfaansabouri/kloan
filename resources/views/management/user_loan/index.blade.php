@@ -23,7 +23,7 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="جستجو بر اساس کد پرسنلی" name="search">
                                 <span class="input-group-btn">
-                      <button class="btn btn-default" type="submit">جستوجو کنید!</button>
+                      <button class="btn btn-default" type="submit">جستجو کنید!</button>
                     </span>
                             </div>
                         </div>
@@ -49,25 +49,52 @@
 
                 <hr>
 
-                <form action="{{ route('import.user_loans') }}" method="post" enctype="multipart/form-data">
-                    @csrf
-                    @method('post')
-                    <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-                        <input type="file" name="file" class="custom-file-input" id="chooseFile">
-                        <label class="custom-file-label" for="chooseFile">انتخاب فایل اکسل</label>
+                <div class="col-sm-6">
+                    <form action="{{ route('import.user_loans') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        @method('post')
+                        <div class="col-md-6 col-sm-6 col-xs-6 form-group">
+                            <input type="file" name="file" class="custom-file-input" id="chooseFile">
+                            <label class="custom-file-label" for="chooseFile">انتخاب فایل اکسل</label>
 
-                    </div>
+                        </div>
 
-                    <button type="submit" name="submit" class="btn btn-primary col-md-4 col-sm-4 col-xs-4 form-group">
-                        ورود وام ها از طریق فایل اکسل
-                    </button>
-                </form>
+                        <button type="submit" name="submit" class="btn btn-primary col-md-12 col-sm-12 col-xs-12 form-group">
+                            ورود وام ها از طریق فایل اکسل
+                        </button>
+                    </form>
 
-                <a href="{{ route('admin.management.user_loan.import_status') }}">
-                    <button type="submit" name="submit" class="btn btn-primary col-md-4 col-sm-4 col-xs-4 form-group">
-                        بررسی وضعیت آخرین وام های وارد شده از طریق اکسل
-                    </button>
-                </a>
+                    <a href="{{ route('admin.management.user_loan.import_status') }}">
+                        <button type="submit" name="submit" class="btn btn-primary col-md-12 col-sm-12 col-xs-12 form-group">
+                            بررسی وضعیت آخرین اکسل
+                        </button>
+                    </a>
+                </div>
+
+                <div class="col-sm-6">
+                    <form action="{{ route('delete.user_loans') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        @method('post')
+                        <div class="col-md-6 col-sm-6 col-xs-6 form-group">
+                            <input type="file" name="file" class="custom-file-input" id="chooseFile">
+                            <label class="custom-file-label" for="chooseFile">انتخاب فایل اکسل</label>
+
+                        </div>
+
+                        <button type="submit" name="submit" class="btn btn-danger col-md-12 col-sm-12 col-xs-12 form-group">
+                            حذف وام ها از طریق فایل اکسل
+                        </button>
+                    </form>
+
+                    <a href="{{ route('admin.management.user_loan.delete_status') }}">
+                        <button type="submit" name="submit" class="btn btn-danger col-md-12 col-sm-12 col-xs-12 form-group">
+                            بررسی وضعیت آخرین اکسل
+                        </button>
+                    </a>
+                </div>
+
+
+
 
 
 
@@ -146,7 +173,37 @@
                                             <td class=" ">{{(new \App\Models\TimeHelper)->georgian2jalali($userLoan->first_installment_received_at) }}</td>
                                             <td class=" "><a href="{{ route('admin.management.user_loan.show', $userLoan->id) }}">نمایش</a></td>
                                             <td class=" "><a href="{{ route('admin.management.user_loan.edit', $userLoan->id) }}">ویرایش</a></td>
-                                            <td class=" "><a href="{{ route('admin.management.user_loan.destroy', $userLoan->id) }}">حذف</a></td>
+                                            <td>
+                                                <button type="button" class="btn btn-danger" data-toggle="modal"
+                                                        data-target=".delete-modal-{{ $userLoan->id }}">حذف
+                                                </button>
+
+                                                <div class="modal fade delete-modal-{{ $userLoan->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+                                                    <div class="modal-dialog modal-sm">
+                                                        <div class="modal-content">
+
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                                                        aria-hidden="true">×</span>
+                                                                </button>
+                                                                <h4 class="modal-title" id="myModalLabel2">حذف وام "{{ $userLoan->user->first_name.' '. $userLoan->user->last_name }}"</h4>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <p>با حذف وام تمام اطلاعات وام و اقساط مربوط به آن حذف خواهد شد. آیا اطمینان دارید؟ </p>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">بستن</button>
+                                                                <button type="button" class="btn btn-danger">
+                                                                    <a href="{{ route('admin.management.user_loan.destroy', $userLoan->id) }}" style="color: whitesmoke">
+                                                                        حذف
+                                                                    </a>
+                                                                </button>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
                                         </tr>
                                     @endforeach
                                     </tbody>

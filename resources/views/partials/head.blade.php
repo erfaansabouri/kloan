@@ -20,7 +20,7 @@
 <!-- bootstrap-daterangepicker -->
 <link href="{{ asset('vendors/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet">
 
+
 <!-- Custom Theme Style -->
 <link href="{{ asset('build/css/custom.min.css') }}" rel="stylesheet">
 <link href="{{ asset('build/css/custom_font.css') }}" rel="stylesheet">
-

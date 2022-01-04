@@ -45,6 +45,8 @@ class twoMonthDiffExport implements WithMultipleSheets
         {
             $sheets[] = new twoMonthDiffPerLoanTypeSheet($firstMonth,$firstYear,$secondMonth,$secondYear,$parentLoanType);
         }
+        $sheets[] = new twoMonthDiffSavingsSheet($firstMonth,$firstYear,$secondMonth,$secondYear);
+
         return $sheets;
 
     }

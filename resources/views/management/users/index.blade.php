@@ -2,7 +2,6 @@
 @extends('master')
 
 @section('content')
-
     <!-- page content -->
     <div class="right_col" role="main">
         <div class="">
@@ -18,7 +17,7 @@
                 <div class="title_right">
                     <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="جست و جو..." name="search">
+                            <input type="text" class="form-control" placeholder="جستجو..." name="search">
                             <span class="input-group-btn">
                       <button class="btn btn-default" type="submit">برو!</button>
                     </span>
@@ -26,6 +25,12 @@
                     </div>
                 </div>
             </form>
+
+            @if (session('result'))
+                <div class="alert alert-success">
+                    {{ session('result') }}
+                </div>
+            @endif
 
 
             <div class="clearfix"></div>
@@ -61,6 +66,7 @@
                                         <th class="column-title">محل خدمت</th>
                                         <th class="column-title">وضعیت</th>
                                         <th class="column-title">عملیات</th>
+                                        <th class="column-title">حذف</th>
                                         </th>
                                         <th class="bulk-actions" colspan="7">
                                             <a class="antoo" style="color:#fff; font-weight:500;">عمل همگانی ( <span
@@ -85,7 +91,38 @@
                                                 <td class="red">غیر فعال</td>
                                             @endif
                                             <td class=" "><a href="{{ route('admin.management.users.show', $user->id) }}">نمایش</a> |
-                                                <a href="{{ route('admin.management.users.edit', $user->id) }}">ویرایش</a> | حذف</td>
+                                                <a href="{{ route('admin.management.users.edit', $user->id) }}">ویرایش</a></td>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-danger" data-toggle="modal"
+                                                        data-target=".delete-modal-{{ $user->id }}">حذف
+                                                </button>
+
+                                                <div class="modal fade delete-modal-{{ $user->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+                                                    <div class="modal-dialog modal-sm">
+                                                        <div class="modal-content">
+
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                                                        aria-hidden="true">×</span>
+                                                                </button>
+                                                                <h4 class="modal-title" id="myModalLabel2">حذف پرسنل "{{ $user->first_name.' '. $user->last_name }}"</h4>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <p>با حذف پرسنل تمامی وام ها، اقساط و حساب پس انداز های ایشان از سامانه حذف خواهد شد. آیا اطمینان دارید؟ </p>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">بستن</button>
+                                                                <button type="button" class="btn btn-danger">
+                                                                    <a href="{{ route('admin.management.users.destroy', $user->id) }}" style="color: whitesmoke">
+                                                                        حذف
+                                                                    </a>
+                                                                </button>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach

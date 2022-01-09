@@ -95,19 +95,23 @@ class UserLoansImport implements ToCollection
                 $hasLoanOfThisType = UserLoan::query()
                     ->where('user_id', $user->id)
                     ->where('loan_type_id', $loanType->id)
-                    ->first();
+                    ->get();
 
-                if($hasLoanOfThisType)
+                if(!empty($hasLoanOfThisType))
                 {
-                    if(!$hasLoanOfThisType->isReceivedCompletely())
+                    foreach ($hasLoanOfThisType as $loan)
                     {
-                        UserLoanImportLog::query()
-                            ->create([
-                                'log' => "ردیف با اطلاعات شماره پرسنلی $userIdentificationCode و کد وام $loanTypeCode قبلا وام فعال دارد ",
-                                'status' => "نا موفق"
-                            ]);
-                        continue;
+                        if(!$loan->isReceivedCompletely())
+                        {
+                            UserLoanImportLog::query()
+                                ->create([
+                                    'log' => "ردیف با اطلاعات شماره پرسنلی $userIdentificationCode و کد وام $loanTypeCode قبلا وام فعال دارد ",
+                                    'status' => "نا موفق"
+                                ]);
+                            continue;
+                        }
                     }
+
                 }
 
                 UserLoan::query()->create([

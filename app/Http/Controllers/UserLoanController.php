@@ -172,14 +172,18 @@ class UserLoanController extends Controller
         $hasLoanOfThisType = UserLoan::query()
             ->where('user_id', $user->id)
             ->where('loan_type_id', $request->loan_type_id)
-            ->first();
+            ->get();
 
-        if($hasLoanOfThisType)
+        if(!empty($hasLoanOfThisType))
         {
-            if(!$hasLoanOfThisType->isReceivedCompletely())
+            foreach ($hasLoanOfThisType as $loan)
             {
-                return redirect()->back()->with('result', 'کاربر قبلا وام فعال دارد و وام جدید ثبت نشد!');
+                if(!$loan->isReceivedCompletely())
+                {
+                    return redirect()->back()->with('customError', 'کاربر قبلا وام فعال دارد و وام جدید ثبت نشد!');
+                }
             }
+
         }
 
         UserLoan::query()

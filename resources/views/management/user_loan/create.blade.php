@@ -26,6 +26,11 @@
                                 {{ session('result') }}
                             </div>
                         @endif
+                        @if (session('customError'))
+                            <div class="alert alert-danger">
+                                {{ session('customError') }}
+                            </div>
+                        @endif
                         @if($errors->any())
                             {!! implode('', $errors->all('<div class="alert alert-danger">:message</div>')) !!}
                         @endif

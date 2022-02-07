@@ -51,7 +51,7 @@
                                     @foreach($logs as $log)
                                         <tr class="even pointer ">
                                             <td class=" ">{{ $log->id }}</td>
-                                            <td class=" ">{{ $log->status }}</td>
+                                            <td class="@if($log->status == 'موفق') bg-green @endif @if($log->status == 'نا موفق') bg-red @endif">{{ $log->status }}</td>
                                             <td class=" ">{{ $log->log }}</td>
                                         </tr>
                                     @endforeach

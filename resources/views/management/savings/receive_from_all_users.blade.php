@@ -85,6 +85,27 @@
                             </form>
                         </div>
                     </div>
+                    <div class="col-sm-12">
+                        <form action="{{ route('import.savings') }}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            @method('post')
+                            <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                                <input type="file" name="file" class="custom-file-input" id="chooseFile">
+                                <label class="custom-file-label" for="chooseFile">انتخاب فایل اکسل</label>
+
+                            </div>
+
+                            <button type="submit" name="submit" class="btn btn-success col-md-12 col-sm-12 col-xs-12 form-group">
+                                دریافت مبلغ از طریق فایل اکسل
+                            </button>
+                        </form>
+
+                        <a href="{{ route('admin.management.savings.import_status') }}">
+                            <button type="submit" name="submit" class="btn btn-success col-md-12 col-sm-12 col-xs-12 form-group">
+                                بررسی وضعیت آخرین اکسل
+                            </button>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

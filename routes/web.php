@@ -17,6 +17,8 @@ Route::get('/get-user-details', [\App\Http\Controllers\Controller::class, 'getUs
 
 
 
+Route::get('/all-user-bedehi-export', [\App\Http\Controllers\Controller::class, 'allUserBedehiExport'])->name('export.all_user_bedehi');
+Route::get('/all-user-total-savings-export', [\App\Http\Controllers\Controller::class, 'allUserSavingsExport'])->name('export.all_user_savings');
 Route::get('/user-loans-export', [\App\Http\Controllers\Controller::class, 'userLoanExport'])->name('export.user_loan');
 Route::get('/all-user-loans-export', [\App\Http\Controllers\Controller::class, 'allUserLoansExport'])->name('export.all_user_loans');
 Route::get('/user-loan-types-export', [\App\Http\Controllers\Controller::class, 'userLoanTypesExport'])->name('export.user_loan_types');
@@ -25,6 +27,7 @@ Route::get('/user-kosoorat-export', [\App\Http\Controllers\Controller::class, 'u
 Route::get('/two-month-export', [\App\Http\Controllers\Controller::class, 'twoMonthDiffExport'])->name('export.two_month');
 Route::post('/import-user-loans', [\App\Http\Controllers\Controller::class, 'importUserLoans'])->name('import.user_loans');
 Route::post('/delete-user-loans', [\App\Http\Controllers\Controller::class, 'deleteUserLoans'])->name('delete.user_loans');
+Route::post('/import-savings', [\App\Http\Controllers\Controller::class, 'importSavings'])->name('import.savings');
 
 Route::get('/', [\App\Http\Controllers\WelcomeController::class, 'index'])->name('home')->middleware(['auth']);
 Route::get('/login', [\App\Http\Controllers\LoginController::class, 'show'])->name('login');
@@ -100,6 +103,8 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
             Route::get('user', [\App\Http\Controllers\SavingController::class, 'user'])->name('admin.management.savings.user');
             Route::get('edit/{id}', [\App\Http\Controllers\SavingController::class, 'edit'])->name('admin.management.savings.edit');
             Route::put('update/{id}', [\App\Http\Controllers\SavingController::class, 'update'])->name('admin.management.savings.update');
+            Route::get('/import-status', [\App\Http\Controllers\SavingController::class, 'importStatus'])->name('admin.management.savings.import_status');
+
         });
     });
 });

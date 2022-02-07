@@ -3,12 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Saving;
+use App\Models\SavingImportLog;
 use App\Models\Setting;
 use App\Models\User;
+use App\Models\UserLoanImportLog;
 use Illuminate\Http\Request;
 
 class SavingController extends Controller
 {
+    public function importStatus()
+    {
+        $logs = SavingImportLog::query()
+            ->get();
+
+        return view('management.user_loan.import_status', compact('logs'));
+    }
     public function user(Request $request)
     {
         $request->validate([

@@ -50,6 +50,9 @@
                             <li><a href="{{ route('admin.management.savings.user') }}">موجودی حساب پس انداز یک عضو</a></li>
                             <li><a href="{{ route('admin.management.user_loan.two_month_diff') }}">تفاوت وام بین دو ماه متوالی</a></li>
                             <li><a href="{{ route('admin.management.installments.kosoorat') }}">کسورات ماهیانه</a></li>
+                            <li><a href="{{ route('export.all_user_savings') }}">موجودی حساب پس انداز تمام اعضا</a></li>
+                            <li><a href="{{ route('export.all_user_bedehi') }}">مانده بدهی تمام اعضا</a></li>
+
                         </ul>
                     </li>
                     <li >
@@ -63,9 +66,9 @@
                         <form action={{ route('logout') }} method="post" id="logout">
                             @csrf
                             @method('post')
-                        
+
                         </form>
-                        
+
                     </li>
                 </ul>
             </div>

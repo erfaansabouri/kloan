@@ -101,6 +101,7 @@ class UserLoansImport implements ToCollection
                 {
                     foreach ($hasLoanOfThisType as $loan)
                     {
+                        $flag = false;
                         if(!$loan->isReceivedCompletely())
                         {
                             UserLoanImportLog::query()
@@ -108,8 +109,10 @@ class UserLoansImport implements ToCollection
                                     'log' => "ردیف با اطلاعات شماره پرسنلی $userIdentificationCode و کد وام $loanTypeCode قبلا وام فعال دارد ",
                                     'status' => "نا موفق"
                                 ]);
+                            $flag = true;
                             continue;
                         }
+                        if($flag) continue;
                     }
 
                 }

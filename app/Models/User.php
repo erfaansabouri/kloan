@@ -172,4 +172,31 @@ class User extends Authenticatable
             ->where('year', $year)
             ->sum('amount');
     }
+
+    public function getTotalSavingAmountAttribute()
+    {
+        return Saving::query()
+            ->where('user_id', $this->id)
+            ->sum('amount');
+    }
+
+    public function getBedehiOfLoanTypeId($loanTypeId)
+    {
+        $subLoanTypeIds = LoanType::query()
+            ->where('parent_id', $loanTypeId)
+            ->get()->pluck('id');
+
+        $userLoans = UserLoan::query()
+            ->where('user_id', $this->id)
+            ->whereIn('loan_type_id', $subLoanTypeIds)
+            ->sum('total_amount');
+
+        $installmentsOfThisTypeOfLoan = Installment::query()
+            ->leftJoin('user_loan','user_loan.id', '=', 'installments.user_loan_id')
+            ->where('installments.user_id', $this->id)
+            ->whereIn('user_loan.loan_type_id', $subLoanTypeIds)
+            ->sum('installments.received_amount');
+
+        return $userLoans - $installmentsOfThisTypeOfLoan;
+    }
 }

@@ -39,6 +39,8 @@ class SavingImport implements ToCollection
                 continue;
             $userIdentificationCode = $row[0];
             $userSavingAmount = $row[1];
+            $year = $row[2];
+            $month = $row[3];
             if(
                 empty($userIdentificationCode) ||
                 empty($userSavingAmount)
@@ -58,8 +60,8 @@ class SavingImport implements ToCollection
             {
                 $oldSaving = Saving::query()
                     ->where('user_id', $user->id)
-                    ->where('year', 1300)
-                    ->where('month', 1)
+                    ->where('year', $year)
+                    ->where('month', $month)
                     ->first();
 
                 if($oldSaving)
@@ -71,8 +73,8 @@ class SavingImport implements ToCollection
                     Saving::query()
                         ->create([
                             'user_id' => $user->id,
-                            'year' => 1300,
-                            'month' => 1,
+                            'year' => $year,
+                            'month' => $month,
                             'amount' => $userSavingAmount,
                         ]);
                 }
